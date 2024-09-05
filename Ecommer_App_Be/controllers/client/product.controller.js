@@ -8,6 +8,7 @@ module.exports.index = async(req,res)=>{
         }
         const products = await Product.find(find)
     
+        
         res.json({
             code:200,
             data:products
