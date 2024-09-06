@@ -54,9 +54,23 @@ const updateMultiApi = async (type,ids)=>{
         }
     }
 }
+const deleteProductApi = async(id)=>{
+    try {
+        const URL_LOGIN =`/api/admin/products/delete/${id}`
+        const response = await axios.delete(URL_LOGIN)
+        return response
+        
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
 export {
     getProductsApi,
     getProductsAdminApi,
     updateStatusProductApi,
-    updateMultiApi
+    updateMultiApi,
+    deleteProductApi
 }

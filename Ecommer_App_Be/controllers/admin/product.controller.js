@@ -80,3 +80,24 @@ module.exports.changeMulti = async (req,res)=>{
         })
     }
 }
+
+// [DELETE] /api/admin/delete/:id
+module.exports.delete = async(req,res)=>{
+    try {
+        const {id} = req.params
+        await Product.updateOne({_id:id},{
+            deleted:true,
+            deletedAt:new Date()
+        })
+
+        res.json({
+            code:200,
+            message:"Xóa sản phẩm thành công"
+        })
+    } catch (error) {
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+}

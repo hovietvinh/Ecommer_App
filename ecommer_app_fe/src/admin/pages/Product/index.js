@@ -1,7 +1,7 @@
 import BoxHead from "../../components/BoxHead";
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  getProductsAdminAction, updateStatusProductAction } from "../../../redux/actions/ProductAction";
+import {  deleteProductAction, getProductsAdminAction, updateStatusProductAction } from "../../../redux/actions/ProductAction";
 import { Empty,Table,Tag,Space,Card, Button, Form,Input, Select } from "antd";
 import { NavLink,useLocation, useSearchParams,useOutletContext } from "react-router-dom";
 import FilterStatus from "../../components/FilterStatus";
@@ -48,6 +48,9 @@ function Product() {
         dispatch(updateStatusProductAction(newStatus,id))
 
     }
+    const handleDelete =(id)=>{
+        dispatch(deleteProductAction(id))
+    }
 
     const columns = [
        
@@ -76,11 +79,18 @@ function Product() {
         {
             title: 'Hành động',
             dataIndex: 'action',
-            render:()=> (
+            render:(_,record)=> (
                 <Space size="middle">
-                    <NavLink className="bg-yellow-400 p-2 text-black rounded-md ">Sửa</NavLink>
-                    <NavLink className="text-white bg-red-600 p-2 rounded-md">Xóa</NavLink>
-                   
+                    <NavLink className="bg-yellow-400 p-2 px-3 text-black rounded-md ">Sửa</NavLink>
+                    <Button
+                        onClick={() => handleDelete(record._id)}
+                        size="middle"
+                        type="primary" 
+                        danger
+                    >
+                        Xóa
+                    </Button>
+
                 </Space>
             ),
             className:"w-1/6"
