@@ -6,6 +6,18 @@ const ProductReducer = (state = initialState, action) => {
             return action.data
         case "GET_PRODUCTS_ADMIN":
             return action.data
+        case "UPDATE_PRODUCT_STATUS_SUCCESS":
+            return state.map(product =>
+                product._id === action.payload.id
+                    ? { ...product, status: action.payload.status }
+                    : product
+            );
+        case "UPDATE_MULTI":
+            return state.map(product =>
+                action.payload.ids.includes(product._id)
+                    ? { ...product, status: action.payload.type }
+                    : product
+            );
         default:
             return state;
     }

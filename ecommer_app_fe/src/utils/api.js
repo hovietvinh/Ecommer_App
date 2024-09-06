@@ -25,7 +25,38 @@ const getProductsAdminApi = async(params = {})=>{
         }
     }
 }
+const updateStatusProductApi = async(status,id)=>{
+    try {
+        const URL_LOGIN =`/api/admin/products/change-status/${status}/${id}`
+        const response = await axios.patch(URL_LOGIN)
+        return response
+        
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+const updateMultiApi = async (type,ids)=>{
+    try {
+        const data={
+            type:type,
+            ids:ids
+        }
+        const URL_LOGIN =`/api/admin/products/change-multi`
+        const response = await axios.patch(URL_LOGIN,data)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 export {
     getProductsApi,
-    getProductsAdminApi
+    getProductsAdminApi,
+    updateStatusProductApi,
+    updateMultiApi
 }
