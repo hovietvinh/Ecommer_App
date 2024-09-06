@@ -12,6 +12,20 @@ const getProductsApi = async()=>{
         }
     }
 }
+const getProductsAdminApi = async(params = {})=>{
+    try {
+        const URL_LOGIN ='/api/admin/products'
+        // console.log(params);
+        const response = await axios.get(URL_LOGIN, { params })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 export {
-    getProductsApi
+    getProductsApi,
+    getProductsAdminApi
 }

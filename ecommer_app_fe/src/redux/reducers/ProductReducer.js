@@ -4,6 +4,8 @@ const ProductReducer = (state = initialState, action) => {
     switch (action.type) {
         case "GET_PRODUCTS":
             return action.data
+        case "GET_PRODUCTS_ADMIN":
+            return action.data
         default:
             return state;
     }
