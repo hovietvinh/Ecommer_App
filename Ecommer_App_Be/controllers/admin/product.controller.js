@@ -16,7 +16,7 @@ module.exports.index = async(req,res)=>{
         if(objectSearch.regex){
             find.title = objectSearch.regex
         }
-        const products = await Product.find(find)
+        const products = await Product.find(find).sort({position:"desc"})
     
         
         res.json({
@@ -54,17 +54,34 @@ module.exports.changeStatus = async (req,res)=>{
 // [PATCH] /api/admin/changeMulti
 module.exports.changeMulti = async (req,res)=>{
     try {
-        const {type,ids} = req.body
+        const {type,ids,positions} = req.body
         // console.log(type,ids);
         switch (type) {
             case "active":
                
-                await Product.updateMany({ _id: { $in: ids } },{ $set: { status: 'inactive' } })
+                await Product.updateMany({ _id: { $in: ids } },{ $set: { status: 'active' } })
+                
                 break;
             case "inactive":
-                await Product.updateMany({ _id: { $in: ids } },{ $set: { status: 'active' } })
-               
-            break;
+                await Product.updateMany({ _id: { $in: ids } },{ $set: { status: 'inactive' } })
+                break;
+            case "delete-all":
+                await Product.updateMany(
+                    { _id: { $in: ids } }, 
+                    { 
+                        $set: { 
+                            deleted:true,
+                            deletedAt:new Date()
+                        }
+                    }
+                );
+                break;
+            case "change-position":
+                await Product.updateMany({_id: { $in: ids } },{
+                    $set: { 
+                        position:positions[ids]
+                    }
+                })
         
             default:
                 break;

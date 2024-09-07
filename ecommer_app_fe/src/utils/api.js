@@ -38,11 +38,12 @@ const updateStatusProductApi = async(status,id)=>{
         }
     }
 }
-const updateMultiApi = async (type,ids)=>{
+const updateMultiApi = async (type,ids,positions)=>{
     try {
         const data={
             type:type,
-            ids:ids
+            ids:ids,
+            positions:positions
         }
         const URL_LOGIN =`/api/admin/products/change-multi`
         const response = await axios.patch(URL_LOGIN,data)

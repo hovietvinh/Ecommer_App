@@ -84,14 +84,14 @@ export const updateStatusProductAction = (status,id)=>{
     }
 }
 
-export const updateMultiAction = (type,ids)=>{
+export const updateMultiAction = (type,ids,positions={})=>{
     return async(dispatch)=>{
         try {
-            const data = await updateMultiApi(type,ids)
+            const data = await updateMultiApi(type,ids,positions)
             if(data.code==200){
                 dispatch({
                     type: "UPDATE_MULTI",
-                    payload: { type, ids }
+                    payload: { type, ids,positions }
                 });
                 notification.success({
                     message:"Thao tác thành công" ,

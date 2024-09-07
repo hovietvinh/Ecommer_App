@@ -13,11 +13,26 @@ const ProductReducer = (state = initialState, action) => {
                     : product
             );
         case "UPDATE_MULTI":
-            return state.map(product =>
-                action.payload.ids.includes(product._id)
-                    ? { ...product, status: action.payload.type }
-                    : product
-            );
+            return state.map(product => {
+                if (action.payload.ids.includes(product._id)) {
+                    switch (action.payload.type) {
+                        case "active":
+                            return { ...product, status: action.payload.type };
+                        case "inactive":
+                            return { ...product, status: action.payload.type };
+                        
+                        case "delete-all":
+                            return { ...product, deleted: true, deletedAt: new Date() };
+                        case "change-position":
+                            return { ...product, position: action.payload.positions[ product._id] };
+
+                        default:
+                            return product;
+                    }
+                }
+                return product;
+            });
+            
         case 'DELETE_PRODUCT':
             return state.filter(product => product._id !== action.payload);
         default:

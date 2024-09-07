@@ -1,12 +1,12 @@
 const Product = require("../../models/product.model")
-
+//[GET] /api/products
 module.exports.index = async(req,res)=>{
     try{
         let find= {
             deleted:false,
             status:"active"
         }
-        const products = await Product.find(find)
+        const products = await Product.find(find).sort({position:"desc"})
     
         
         res.json({
