@@ -118,3 +118,39 @@ module.exports.delete = async(req,res)=>{
         })
     }
 }
+// [POST] /api/admin/products
+module.exports.create = async(req,res)=>{
+    try{
+        // const {data} = req.body
+       
+        req.body.price = parseInt(req.body.price )
+        req.body.discountPercentage = parseInt(req.body.discountPercentage )
+        req.body.stock = parseInt(req.body.stock )
+        // console.log(req.body.position);
+        
+        if(!req.body.position){
+            console.log(req.body);
+            const countProduct = await Product.countDocuments();
+            req.body.position= countProduct+1
+            
+        }
+        else{
+            req.body.position= parseInt(req.body.position)
+        }
+
+        const product = new Product(req.body)
+        await product.save()
+
+        res.json({
+            code:200,
+            message:"Tạo sản phẩm thành công",
+            data:product
+        })
+    }catch(e){
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+    
+}

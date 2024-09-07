@@ -68,10 +68,29 @@ const deleteProductApi = async(id)=>{
         }  
     }
 }
+
+const createProductApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/admin/products/create`
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        })
+        return response
+        
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
 export {
     getProductsApi,
     getProductsAdminApi,
     updateStatusProductApi,
     updateMultiApi,
-    deleteProductApi
+    deleteProductApi,
+    createProductApi
 }

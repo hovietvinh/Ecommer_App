@@ -3,6 +3,7 @@ import Product from "../client/pages/Product";
 import DefaultAdmin from "../admin/layouts/Default";
 import Dashboard from "../admin/pages/Dashboard";
 import ProductAdmin from "../admin/pages/Product";
+import CreateProduct from "../admin/pages/CreateProduct";
 
 
 export const routes = [
@@ -31,6 +32,10 @@ export const routes = [
             {
                 path:"products",
                 element:<ProductAdmin/>
+            },
+            {
+                path:"products/create",
+                element:<CreateProduct/>
             }
         ]
     }

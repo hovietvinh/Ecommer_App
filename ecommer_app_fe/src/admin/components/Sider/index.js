@@ -1,16 +1,12 @@
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    PieChartOutlined,
-    DashboardOutlined,
-    ShoppingCartOutlined
-  } from '@ant-design/icons';
-  import { useState } from 'react';
-  import { Button, Menu } from 'antd';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
+import { MenuUnfoldOutlined, MenuFoldOutlined, FileAddOutlined, DashboardOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
+import { NavLink, useLocation } from 'react-router-dom';
+
 function Sider(props) {
-    const {collapsed,toggleCollapsed} = props
-    
+    const { collapsed, toggleCollapsed } = props;
+    const location = useLocation();
+
     const items = [
         {
             key: 'toggle',
@@ -31,20 +27,19 @@ function Sider(props) {
         },
         {
             key: '3',
-            icon: <PieChartOutlined />,
-            label: 'Option 3',
+            icon: <FileAddOutlined />,
+            label: <NavLink to="/admin/products/create">Thêm sản phẩm</NavLink>,
         },
     ];
-    
-    
-    
+
+    const selectedKey = location.pathname === '/admin/products/create' ? '3' :
+                        location.pathname === '/admin/products' ? '2' : '1';
 
     return (
         <div className='w-[210px] text-white fixed top-[56px] left-0 h-screen'>
-            
             <Menu
+                selectedKeys={[selectedKey]}
                 defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}

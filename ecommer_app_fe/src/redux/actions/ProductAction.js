@@ -1,4 +1,4 @@
-import { deleteProductApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateStatusProductApi } from "../../utils/api"
+import { createProductApi, deleteProductApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateStatusProductApi } from "../../utils/api"
 import { notification } from 'antd';
 
 export const getProductsAction = ()=>{
@@ -133,6 +133,35 @@ export const deleteProductAction = (id)=>{
                 })
             }
             
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
+            })
+        }
+    }
+}
+
+export const createProductAction = (data)=>{
+    return async(dispatch)=>{
+        try {
+            const response = await createProductApi(data)
+            if(response.code==200){
+                dispatch({
+                    type: "CREATE_PRODUCT",
+                    data:response.data
+                });
+                notification.success({
+                    message:response.message
+                   
+                })
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại code: " ,
+                    description: response.message
+                })
+            }
         } catch (error) {
             notification.error({
                 message:"Lấy dữ liệu thất bại",

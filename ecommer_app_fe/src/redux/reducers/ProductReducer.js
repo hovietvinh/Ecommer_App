@@ -35,6 +35,8 @@ const ProductReducer = (state = initialState, action) => {
             
         case 'DELETE_PRODUCT':
             return state.filter(product => product._id !== action.payload);
+        case "CREATE_PRODUCT":
+            return [...state ,action.data ]
         default:
             return state;
     }

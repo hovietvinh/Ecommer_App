@@ -231,7 +231,14 @@ function Product() {
                             fontWeight: '300'
                         }}
                     >
-                        <ChangeMulti handleChangePosition={handleChangePosition} selectedRowKeys={selectedRowKeys} setSelectedRowKeys={setSelectedRowKeys} />
+                        <Space align="center" className="pr-9" style={{ width: '100%', justifyContent: 'space-between' }}>
+                            <ChangeMulti handleChangePosition={handleChangePosition} selectedRowKeys={selectedRowKeys} setSelectedRowKeys={setSelectedRowKeys} />
+                            <NavLink to="/admin/products/create">
+                                <Button type="text" className="border-1 border-green-500 text-green-500 hover:bg-green-500 hover:text-white" >Thêm mới</Button>
+                            </NavLink>
+
+                        </Space>
+
                         <Table
                             rowKey={(record) => record._id}
                             size="middle"
