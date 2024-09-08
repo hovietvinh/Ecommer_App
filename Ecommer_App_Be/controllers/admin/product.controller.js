@@ -4,6 +4,7 @@ const  searchHelpers = require("../../helpers/search")
 // [GET] /api/admin/products
 module.exports.index = async(req,res)=>{
     try{
+
         let find= {
             deleted:false
         }
@@ -18,7 +19,7 @@ module.exports.index = async(req,res)=>{
         }
         const products = await Product.find(find).sort({position:"desc"})
     
-        
+        // console.log(products);
         res.json({
             code:200,
             data:products
@@ -65,6 +66,8 @@ module.exports.detail = async(req,res)=>{
     }
     
 }
+
+
 
 // [PATCH] /api/admin/change-status/:status/:id
 module.exports.changeStatus = async (req,res)=>{
@@ -155,16 +158,15 @@ module.exports.delete = async(req,res)=>{
 // [POST] /api/admin/products
 module.exports.create = async(req,res)=>{
     try{
-        // const {data} = req.body
-        
        
-        req.body.price = parseInt(req.body.price )
-        req.body.discountPercentage = parseInt(req.body.discountPercentage )
+       console.log(req.body);
+        req.body.price = parseFloat(req.body.price )
+        req.body.discountPercentage = parseFloat(req.body.discountPercentage )
         req.body.stock = parseInt(req.body.stock )
-        // console.log(req.body.position);
+    
         
         if(!req.body.position){
-            console.log(req.body);
+           
             const countProduct = await Product.countDocuments();
             req.body.position= countProduct+1
             
@@ -172,10 +174,13 @@ module.exports.create = async(req,res)=>{
         else{
             req.body.position= parseInt(req.body.position)
         }
-        // console.log(req.body);
+        // if(req.file){
+        //      req.body.thumbnail = req.file.path;
+        // }
+
 
         const product = new Product(req.body)
-        // await product.save()
+        await product.save()
 
         res.json({
             code:200,
@@ -197,9 +202,25 @@ module.exports.edit = async(req,res)=>{
     
     try{
         // const data = req.body
-        req.body.price = parseInt(req.body.price )
-        req.body.discountPercentage = parseInt(req.body.discountPercentage )
-        req.body.stock = parseInt(req.body.stock )
+        
+        if(req.body.price){
+            req.body.price = parseFloat(req.body.price )
+        }
+        else{
+            req.body.price=1    
+        }
+        if(req.body.discountPercentage){
+            req.body.discountPercentage = parseInt(req.body.discountPercentage )
+        }else{
+            req.body.discountPercentage = 0
+        }
+        if( req.body.stock){
+            req.body.stock = parseInt(req.body.stock )
+        }
+        else{
+            req.body.stock=1
+        }
+        
         // console.log(req.body.position);
         
         if(!req.body.position){

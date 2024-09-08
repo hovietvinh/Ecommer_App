@@ -6,6 +6,7 @@ import ProductAdmin from "../admin/pages/Product";
 import CreateProduct from "../admin/pages/CreateProduct";
 import EditProduct from "../admin/pages/EditProduct";
 import DetailProduct from "../admin/pages/DetailProduct";
+import DetailProductClient from "../client/pages/DetailProduct"
 
 
 export const routes = [
@@ -20,6 +21,10 @@ export const routes = [
             {
                 path:"/products",
                 element:<Product/>
+            },
+            {
+                path:"/products/:slug",
+                element:<DetailProductClient/>
             }
         ]
     },
@@ -42,8 +47,7 @@ export const routes = [
             {
                 path:"products/edit/:id",
                 element:<EditProduct/>
-            }
-            ,
+            },
             {
                 path:"products/detail/:id",
                 element:<DetailProduct/>

@@ -1,4 +1,4 @@
-import { createProductApi, deleteProductApi, getProductDetailApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateProductApi, updateStatusProductApi } from "../../utils/api"
+import { createProductApi, deleteProductApi, getProductDetailApi, getProductDetaiSluglApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateProductApi, updateStatusProductApi } from "../../utils/api"
 import { notification } from 'antd';
 
 export const getProductsAction = ()=>{
@@ -145,7 +145,9 @@ export const deleteProductAction = (id)=>{
 export const createProductAction = (data)=>{
     return async(dispatch)=>{
         try {
+            // console.log(data);
             const response = await createProductApi(data)
+            
             if(response.code==200){
                 dispatch({
                     type: "CREATE_PRODUCT",
@@ -215,6 +217,32 @@ export const updateProductAction =(id,values)=>{
                 notification.error({
                     message:response.message
                    
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:error.message,
+                // description: error.message
+            })
+        }
+    }
+}
+
+export const getProductDetaiSluglAction = (slug)=>{
+    return async(dispatch)=>{
+        try {
+            const response = await getProductDetaiSluglApi(slug)
+            if(response.code==200){
+                dispatch({
+                    type: "GET_DETAIL_PRODUCT",
+                    data:response.data
+                });
+               
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại" ,
+                    description: response.message
                 })
             }
         } catch (error) {

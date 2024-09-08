@@ -1,38 +1,49 @@
+import React, { useState, useEffect } from 'react';
 import BoxHead from "../../components/BoxHead";
-import { useOutletContext, useParams,useNavigate } from "react-router-dom";
+import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getProductDetailAction,updateProductAction } from "../../../redux/actions/ProductAction";
-import { Form, Radio, Input, InputNumber, Button } from "antd";
+import { getProductDetailAction, getProductsAction, updateProductAction } from "../../../redux/actions/ProductAction";
+import { Form, Radio, Input, InputNumber, Button, message } from "antd";
+import UploadImg from "../../components/Upload/index"; // Adjust the import path based on your folder structure
 
 function EditProduct() {
   const { collapsed } = useOutletContext();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.ProductReducer); // Lấy productDetail từ Redux
+  const product = useSelector((state) => state.ProductReducer);
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
-    // Gọi API để lấy chi tiết sản phẩm khi component được mount
     dispatch(getProductDetailAction(id));
   }, [dispatch, id]);
 
   useEffect(() => {
-    // console.log(product);
-    // Khi product thay đổi, cập nhật giá trị form
-    if (product !== null && typeof product === 'object' && !Array.isArray(product)) {
-    console.log(product);
-        
-      form.setFieldsValue(product); // Đặt giá trị mặc định của form bằng dữ liệu product
+    if (product && typeof product === 'object' && !Array.isArray(product)) {
+      console.log(product);
+      form.setFieldsValue(product);
+      setImageFile(null); // Reset image file to allow image upload if necessary
     }
   }, [product, form]);
 
-  const finish = async (values) => {
-    // Xử lý khi submit form
-    dispatch(updateProductAction(id,values))
-    console.log(values);
+  const handleImageSelect = (file) => {
+    setImageFile(file);
+  };
 
+  const finish = async (values) => {
+    const formData = new FormData();
+    Object.keys(values).forEach(key => {
+      formData.append(key, values[key] || '');
+    });
+    if (imageFile) {
+      formData.append('thumbnail', imageFile);
+    }
+
+    dispatch(updateProductAction(id, formData))
+      .then(()=>{
+        dispatch(getProductsAction())
+      });
     navigate('/admin/products');
     
   };
@@ -67,7 +78,7 @@ function EditProduct() {
           </Form.Item>
 
           <Form.Item label="Giá" name="price">
-            <InputNumber min={0} style={{ width: "100%" }} />
+            <InputNumber min={1} style={{ width: "100%" }} />
           </Form.Item>
 
           <Form.Item label="% Giảm giá" name="discountPercentage">
@@ -80,6 +91,10 @@ function EditProduct() {
 
           <Form.Item label="Vị trí" name="position">
             <InputNumber min={1} placeholder="Tự động tăng" style={{ width: "100%" }} />
+          </Form.Item>
+
+          <Form.Item label="Ảnh sản phẩm">
+            <UploadImg onImageSelect={handleImageSelect} defaultImage={product.thumbnail} />
           </Form.Item>
 
           <Form.Item label="Trạng thái" name="status">

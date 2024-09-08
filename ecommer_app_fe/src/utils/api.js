@@ -73,9 +73,10 @@ const deleteProductApi = async(id)=>{
 const createProductApi = async(data)=>{
     try {
         const URL_LOGIN =`/api/admin/products/create`
+        // console.log(data);
         const response = await axios.post(URL_LOGIN,data,{
             headers:{
-                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/json'
             }
         })
         return response
@@ -105,9 +106,23 @@ const updateProductApi = async(id,values)=>{
         const URL_LOGIN =`/api/admin/products/edit/${id}`
         const response = await axios.patch(URL_LOGIN,values,{
             headers: {
-              'Content-Type': 'application/json'
+            //   'Content-Type': 'application/json'
             }
           })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+
+const getProductDetaiSluglApi= async(slug)=>{
+    try {
+        // console.log(123);
+        const URL_LOGIN =`/api/products/detail/${slug}`
+        const response = await axios.get(URL_LOGIN)
         return response
     } catch (error) {
         return {
@@ -124,5 +139,6 @@ export {
     deleteProductApi,
     createProductApi,
     getProductDetailApi,
-    updateProductApi
+    updateProductApi,
+    getProductDetaiSluglApi
 }

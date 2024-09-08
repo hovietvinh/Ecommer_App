@@ -41,6 +41,7 @@ const ProductReducer = (state = initialState, action) => {
             return action.data
         case "UPDATE_PRODUCT":
             return state
+        
         default:
             return state;
     }

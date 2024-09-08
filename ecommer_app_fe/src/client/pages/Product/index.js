@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../../../redux/actions/ProductAction";
 import { useEffect } from "react";
 import { Empty } from "antd";
+import { NavLink } from "react-router-dom";
 
 
 function Product() {
@@ -17,7 +18,7 @@ function Product() {
         }
         fetchApi()
     },[dispatch])
-    console.log(products);
+    // console.log(products);
 
     return (
         <>
@@ -29,9 +30,9 @@ function Product() {
                     {products.length>0?(
                         products.map(product=>(
                         
-                                <div key={product._id}  className="rounded-lg overflow-hidden border border-gray-300">
+                                <NavLink to={`/products/${product.slug}`} key={product._id}  className="rounded-lg overflow-hidden border border-gray-300">
                                     <div className="w-full aspect-[4/3] border border-gray-300">
-                                        <img className="w-full h-full object-cover" src={product.thumbnail}></img>
+                                        <img className="w-full h-full object-cover" src={product.thumbnail?product.thumbnail:"https://lh4.googleusercontent.com/proxy/IEU20xZDxGIL6f-PIiD-uSnnbAflCtBb2ZSY3tXouFuAYAi-Ehi0ijol5w075iG5KkAICJI1dSpzy6LKGrpd4mxX6A0bJNvWBFpDajmZR97wXUfbXA"}></img>
                                     </div>
                                     <div className="p-[15px]">
                                         <h3 className="text-[20px] font-semibold">{product.title}</h3>
@@ -40,7 +41,7 @@ function Product() {
                                         <div className="text-[14px] font-semibold text-white bg-red-500 inline-block py-1 px-3 rounded-lg">-{product.discountPercentage}%</div>
 
                                     </div>
-                                </div>
+                                </NavLink>
                         
                             
                         ))
