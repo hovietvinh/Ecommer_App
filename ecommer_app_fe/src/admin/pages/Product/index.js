@@ -107,7 +107,7 @@ function Product() {
             title: 'Hình ảnh',
             dataIndex: 'thumbnail',
             render: (img) => <img className="w-[80px] h-auto" src={img} />,
-            className: "w-[200px] h-auto"
+            className: "w-[150px] h-auto"
         },
         {
             title: 'Giá',
@@ -153,7 +153,8 @@ function Product() {
             title: 'Hành động',
             dataIndex: 'action',
             render: (_, record) => (
-                <Space size="middle">
+                <div className="w-full flex items-center justify-center">
+                    <Space size="middle">
                     <NavLink to={`/admin/products/edit/${record._id}`} className="bg-yellow-400 p-2 px-3 text-black rounded-md">Sửa</NavLink>
                     <Button
                         onClick={() => handleDelete(record._id)}
@@ -163,9 +164,13 @@ function Product() {
                     >
                         Xóa
                     </Button>
+                    <NavLink to={`/admin/products/detail/${record._id}`} className="bg-gray-400 p-2 px-3 text-white rounded-md">Chi tiết</NavLink>
+
+                    
                 </Space>
+                </div>
             ),
-            className: "w-1/6"
+            className: "w-[260px]"
         },
     ];
 
