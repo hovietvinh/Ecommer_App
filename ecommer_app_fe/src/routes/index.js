@@ -4,6 +4,7 @@ import DefaultAdmin from "../admin/layouts/Default";
 import Dashboard from "../admin/pages/Dashboard";
 import ProductAdmin from "../admin/pages/Product";
 import CreateProduct from "../admin/pages/CreateProduct";
+import EditProduct from "../admin/pages/EditProduct";
 
 
 export const routes = [
@@ -36,6 +37,10 @@ export const routes = [
             {
                 path:"products/create",
                 element:<CreateProduct/>
+            },
+            {
+                path:"products/edit/:id",
+                element:<EditProduct/>
             }
         ]
     }

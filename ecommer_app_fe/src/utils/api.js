@@ -2,6 +2,7 @@ import axios from "./axios.customize"
 
 const getProductsApi = async()=>{
     try {
+        // console.log(1);
         const URL_LOGIN ='/api/products'
         const response = await axios.get(URL_LOGIN)
         return response
@@ -86,11 +87,42 @@ const createProductApi = async(data)=>{
         }  
     }
 }
+const getProductDetailApi= async(id)=>{
+    try {
+        // console.log(123);
+        const URL_LOGIN =`/api/admin/products/detail/${id}`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+const updateProductApi = async(id,values)=>{
+    try {
+        const URL_LOGIN =`/api/admin/products/edit/${id}`
+        const response = await axios.patch(URL_LOGIN,values,{
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
 export {
     getProductsApi,
     getProductsAdminApi,
     updateStatusProductApi,
     updateMultiApi,
     deleteProductApi,
-    createProductApi
+    createProductApi,
+    getProductDetailApi,
+    updateProductApi
 }

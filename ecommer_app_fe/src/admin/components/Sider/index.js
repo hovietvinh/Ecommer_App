@@ -33,7 +33,7 @@ function Sider(props) {
     ];
 
     const selectedKey = location.pathname === '/admin/products/create' ? '3' :
-                        location.pathname === '/admin/products' ? '2' : '1';
+                        location.pathname === '/admin/products' ? '2' : location.pathname === '/admin/dashboard'?'1':"";
 
     return (
         <div className='w-[210px] text-white fixed top-[56px] left-0 h-screen'>

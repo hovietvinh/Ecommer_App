@@ -154,7 +154,7 @@ function Product() {
             dataIndex: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <NavLink className="bg-yellow-400 p-2 px-3 text-black rounded-md">Sửa</NavLink>
+                    <NavLink to={`/admin/products/edit/${record._id}`} className="bg-yellow-400 p-2 px-3 text-black rounded-md">Sửa</NavLink>
                     <Button
                         onClick={() => handleDelete(record._id)}
                         size="middle"

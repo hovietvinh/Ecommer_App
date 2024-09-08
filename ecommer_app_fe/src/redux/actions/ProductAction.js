@@ -1,4 +1,4 @@
-import { createProductApi, deleteProductApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateStatusProductApi } from "../../utils/api"
+import { createProductApi, deleteProductApi, getProductDetailApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateProductApi, updateStatusProductApi } from "../../utils/api"
 import { notification } from 'antd';
 
 export const getProductsAction = ()=>{
@@ -166,6 +166,61 @@ export const createProductAction = (data)=>{
             notification.error({
                 message:"Lấy dữ liệu thất bại",
                 description: error.message
+            })
+        }
+    }
+}
+
+export const getProductDetailAction = (id)=>{
+    return async(dispatch)=>{
+        try {
+            const response = await getProductDetailApi(id)
+            if(response.code==200){
+                dispatch({
+                    type: "GET_DETAIL_PRODUCT",
+                    data:response.data
+                });
+               
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại" ,
+                    description: response.message
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
+            })
+        }
+    }
+}
+export const updateProductAction =(id,values)=>{
+    return async(dispatch)=>{
+        try {
+            const response = await updateProductApi(id,values)
+            if(response.code==200){
+                dispatch({
+                    type: "UPDATE_PRODUCT",
+                    // data:response.data
+                });
+                notification.success({
+                    message:response.message
+                   
+                })
+               
+            }
+            else{
+                notification.error({
+                    message:response.message
+                   
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:error.message,
+                // description: error.message
             })
         }
     }
