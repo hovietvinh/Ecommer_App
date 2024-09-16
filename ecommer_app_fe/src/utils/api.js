@@ -351,6 +351,19 @@ const loginAccountsApi = async(data)=>{
         }
     }
 }
+const checkAuthApi = async(data)=>{
+    try {
+      
+        const URL_LOGIN ='/api/admin/auth/checkAuth'
+        const response = await axios.post(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 export {
     getProductsApi,
     getProductsAdminApi,
@@ -375,5 +388,6 @@ export {
     updatePermissionsApi,
     createAccountApi,
     getAccountsApi,
-    loginAccountsApi
+    loginAccountsApi,
+    checkAuthApi
 }

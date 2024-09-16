@@ -6,7 +6,7 @@ const middleware = require("../../middlewars/checkAuthAdmin")
 
 
 router.use((req, res, next) => {
-    if (req.path === "/login") {
+    if (req.path === "/login" || req.path === "/checkAuth") {
         return next(); 
     }
     middleware.checkAuthByAccessToken(req, res, next); 
@@ -15,6 +15,7 @@ router.use((req, res, next) => {
 
 router.post("/login",validate.auth,controller.login)
 router.post("/logout",validate.auth,controller.login)
+router.post("/checkAuth",controller.checkAuth)
 
 
 

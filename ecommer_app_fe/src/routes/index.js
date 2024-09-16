@@ -20,6 +20,7 @@ import Accounts from "../admin/pages/Accounts";
 import CreateAccount from "../admin/pages/CreateAccount";
 import {Navigate} from "react-router-dom"
 import Login from "../admin/pages/Login";
+import PrivateRoute from "../admin/pages/PrivateRoute";
 
 export const routes = [
     {
@@ -42,7 +43,7 @@ export const routes = [
     },
     {
         path:"/admin",
-        element:<DefaultAdmin/>,
+        element:<PrivateRoute><DefaultAdmin/></PrivateRoute>,
         children:[
             {
                 index: true,

@@ -1,4 +1,5 @@
 import { Form, Input, Button } from "antd";
+import { useEffect } from "react";
 import {useDispatch,useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { loginAccountAction } from "../../../redux/actions/AuthAction";
@@ -8,9 +9,8 @@ function Login() {
     const statueAuth = useSelector(state=>state.AuthReducer)
     const navigate = useNavigate()
     const [form] = Form.useForm()
-
     const handleFinish =async (values) => {
-        console.log(values);
+        // console.log(values);
         const access_token = await dispatch(loginAccountAction(values));
         
         if (access_token) {
