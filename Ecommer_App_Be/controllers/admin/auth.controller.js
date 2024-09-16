@@ -28,7 +28,7 @@ module.exports.login = async(req,res)=>{
             const role = await Role.findOne({
                 deleted:false,
                 _id:account.role_id
-            })
+            }).select("title permissions")
             const payload ={
                 email:account.email,
                 fullName:account.fullName,
@@ -72,7 +72,8 @@ module.exports.checkAuth = async(req,res)=>{
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
           
             return res.json({
-                code:200
+                code:200,
+                data:decoded
             })
         } catch (error) {
             return res.json({

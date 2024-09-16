@@ -1,5 +1,6 @@
 import {notification} from "antd"
-import { loginAccountsApi } from "../../utils/api";
+import { responsiveArray } from "antd/es/_util/responsiveObserver";
+import { checkAuthApi, loginAccountsApi } from "../../utils/api";
 export const loginAccountAction = (data)=>{
     return async(dispatch)=>{
         try {
@@ -7,7 +8,7 @@ export const loginAccountAction = (data)=>{
             const response = await loginAccountsApi(data)
             
             if(response.code==200){
-                const { access_token } = response;
+                const { access_token,data } = response;
                 dispatch({
                     type: "LOGIN_ACCOUNT",
                     data:response.data,
@@ -17,7 +18,10 @@ export const loginAccountAction = (data)=>{
                     message:"Đăng nhập thành công"
                    
                 })
-                return access_token
+                return {
+                    access_token:access_token,
+                    role:data.role
+                }
             }
             else{
                 notification.error({
@@ -25,6 +29,32 @@ export const loginAccountAction = (data)=>{
                 })
                 return null
             }
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
+            })
+            return null
+        }
+    }
+}
+
+export const checkAuthAction = ()=>{
+    return async(dispatch)=>{
+        try {
+            const response = await checkAuthApi()
+            if(response.code ==200){
+                dispatch({
+                    type: "CHECK_AUTH",
+                    data:response.data,
+                });
+                return response
+            }
+            else{
+                
+                return null 
+            }
+            
         } catch (error) {
             notification.error({
                 message:"Lấy dữ liệu thất bại",

@@ -2,7 +2,7 @@ import { Form, Input, Button } from "antd";
 import { useEffect } from "react";
 import {useDispatch,useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
-import { loginAccountAction } from "../../../redux/actions/AuthAction";
+import { checkAuthAction, loginAccountAction } from "../../../redux/actions/AuthAction";
 
 function Login() {
     const dispatch = useDispatch()
@@ -11,18 +11,35 @@ function Login() {
     const [form] = Form.useForm()
     const handleFinish =async (values) => {
         // console.log(values);
-        const access_token = await dispatch(loginAccountAction(values));
+        const res = await dispatch(loginAccountAction(values));
         
-        if (access_token) {
-            console.log(access_token);
-            localStorage.setItem("access_token",access_token)
+        if (res && res.access_token) {
+            // console.log(access_token);
+            localStorage.setItem("access_token",res.access_token)
+            // localStorage.setItem("role",res.role)
             navigate("/admin/dashboard");
         }
         
         form.resetFields()
             
     };
-    console.log(statueAuth);
+    const access_token = localStorage.getItem("access_token")
+    useEffect(()=>{
+        const fetch=async()=>{
+            if(access_token){
+                const auth =await dispatch(checkAuthAction())
+                console.log(auth);
+                if(auth.code==200){
+                    navigate("/admin/dashboard")
+                }
+            }
+        }
+        fetch()
+        
+    },[access_token,dispatch])
+
+    // if(statueAuth)
+    // console.log(statueAuth);
 
     return (
         <div className="container my-5 w-[50%] m-auto">

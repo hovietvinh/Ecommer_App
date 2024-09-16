@@ -351,7 +351,7 @@ const loginAccountsApi = async(data)=>{
         }
     }
 }
-const checkAuthApi = async(data)=>{
+const checkAuthApi = async()=>{
     try {
       
         const URL_LOGIN ='/api/admin/auth/checkAuth'

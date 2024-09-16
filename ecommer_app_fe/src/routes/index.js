@@ -6,7 +6,7 @@ import ProductAdmin from "../admin/pages/Product";
 import CreateProduct from "../admin/pages/CreateProduct";
 import EditProduct from "../admin/pages/EditProduct";
 import DetailProduct from "../admin/pages/DetailProduct";
-import DetailProductClient from "../client/pages/DetailProduct"
+import DetailProductClient from "../client/pages/DetailProduct";
 import ProductCategory from "../admin/pages/ProductCategory";
 import CreateProductCategory from "../admin/pages/CreateProductCategory";
 import RecordsDelete from "../admin/pages/RecordsDelete";
@@ -18,106 +18,111 @@ import EditRole from "../admin/pages/EditRole";
 import RolePermissions from "../admin/pages/RolePermissions";
 import Accounts from "../admin/pages/Accounts";
 import CreateAccount from "../admin/pages/CreateAccount";
-import {Navigate} from "react-router-dom"
 import Login from "../admin/pages/Login";
 import PrivateRoute from "../admin/pages/PrivateRoute";
+import RoleBasedRoute from "../admin/pages/RoleBasedRoute";
+import { Navigate } from "react-router-dom";
+import Error from "../admin/pages/403";
 
 export const routes = [
     {
-        path:"/",
-        element:<Default/>,
-        children:[  
+        path: "/",
+        element: <Default />,
+        children: [
             {
-                path:"/",
-                element:<>123</>
+                path: "/",
+                element: <>123</>,
             },
             {
-                path:"/products",
-                element:<Product/>
+                path: "/products",
+                element: <Product />,
             },
             {
-                path:"/products/:slug",
-                element:<DetailProductClient/>
+                path: "/products/:slug",
+                element: <DetailProductClient />,
             }
-        ]
+        ],
     },
     {
-        path:"/admin",
-        element:<PrivateRoute><DefaultAdmin/></PrivateRoute>,
-        children:[
+        path: "/admin",
+        element: <PrivateRoute><DefaultAdmin /></PrivateRoute>,
+        children: [
             {
                 index: true,
-                element: <Navigate to="/admin/auth/login" replace />
+                element: <Navigate to="/admin/dashboard" replace />,
             },
             {
-                path:"dashboard",
-                element:<Dashboard/>
+                path: "dashboard",
+                element: <RoleBasedRoute requiredPermissions={[]}><Dashboard /></RoleBasedRoute>,
             },
             {
-                path:"products",
-                element:<ProductAdmin/>
+                path: "products",
+                element: <RoleBasedRoute requiredPermissions={["products_view"]}><ProductAdmin /></RoleBasedRoute>,
             },
             {
-                path:"products/create",
-                element:<CreateProduct/>
+                path: "products/create",
+                element: <RoleBasedRoute requiredPermissions={["products_create"]}><CreateProduct /></RoleBasedRoute>,
             },
             {
-                path:"products/edit/:id",
-                element:<EditProduct/>
+                path: "products/edit/:id",
+                element: <RoleBasedRoute requiredPermissions={["products_edit"]}><EditProduct /></RoleBasedRoute>,
             },
             {
-                path:"products/detail/:id",
-                element:<DetailProduct/>
+                path: "products/detail/:id",
+                element: <RoleBasedRoute requiredPermissions={["products_view"]}><DetailProduct /></RoleBasedRoute>,
             },
             {
-                path:"products-category",
-                element:<ProductCategory/>
+                path: "products-category",
+                element: <RoleBasedRoute requiredPermissions={["products_category_view"]}><ProductCategory /></RoleBasedRoute>,
             },
             {
-                path:"products-category/create",
-                element:<CreateProductCategory/>
+                path: "products-category/create",
+                element: <RoleBasedRoute requiredPermissions={["products_category_create"]}><CreateProductCategory /></RoleBasedRoute>,
             },
             {
-                path:"products-category/detail/:id",
-                element:<ProductCategoryDetail/>
+                path: "products-category/detail/:id",
+                element: <RoleBasedRoute requiredPermissions={["products_category_view"]}><ProductCategoryDetail /></RoleBasedRoute>,
             },
             {
-                path:"products-category/edit/:id",
-                element:<EditProductCategory/>
+                path: "products-category/edit/:id",
+                element: <RoleBasedRoute requiredPermissions={["products_category_edit"]}><EditProductCategory /></RoleBasedRoute>,
+            },
+            {
+                path: "records/delete",
+                element: <RoleBasedRoute ><RecordsDelete /></RoleBasedRoute>,
+            },
+            {
+                path: "roles",
+                element: <RoleBasedRoute requiredPermissions={["roles_view"]}><Roles /></RoleBasedRoute>,
+            },
+            {
+                path: "roles/create",
+                element: <RoleBasedRoute requiredPermissions={["roles_create"]}><CreateRole /></RoleBasedRoute>,
+            },
+            {
+                path: "roles/edit/:id",
+                element: <RoleBasedRoute requiredPermissions={["roles_edit"]}><EditRole /></RoleBasedRoute>,
+            },
+            {
+                path: "roles/permissions",
+                element: <RoleBasedRoute requiredPermissions={["roles_permissions"]}><RolePermissions /></RoleBasedRoute>,
+            },
+            {
+                path: "accounts",
+                element: <RoleBasedRoute ><Accounts /></RoleBasedRoute>,
+            },
+            {
+                path: "accounts/create",
+                element: <RoleBasedRoute ><CreateAccount /></RoleBasedRoute>,
+            },
+            {
+                path: "403",
+                element:<Error/>
             }
-            ,
-            {
-                path:"records/delete",
-                element:<RecordsDelete/>
-            },
-            {
-                path:"roles",
-                element:<Roles/>
-            },
-            {
-                path:"roles/create",
-                element:<CreateRole/>
-            },
-            {
-                path:"roles/edit/:id",
-                element:<EditRole/>
-            },
-            {
-                path:"roles/permissions",
-                element:<RolePermissions/>
-            },
-            {
-                path:"accounts",
-                element:<Accounts/>
-            },
-            {
-                path:"accounts/create",
-                element:<CreateAccount/>
-            }
-        ]
+        ],
     },
     {
-        path:"/admin/auth/login",
-        element:<Login/>
+        path: "/admin/auth/login",
+        element: <Login />,
     }
 ];

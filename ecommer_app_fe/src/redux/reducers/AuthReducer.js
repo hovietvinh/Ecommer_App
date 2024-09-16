@@ -1,6 +1,7 @@
 const initialState = {
     access_token:"",
-    account:{}
+    account:{},
+    role:{}
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -10,7 +11,14 @@ const AuthReducer = (state = initialState, action) => {
             return {
                 ...state,
                 access_token:action.access_token,
-                account:action.data
+                account:action.data,
+                role:action.data.role
+            }
+        case "CHECK_AUTH":
+            return {
+                ...state,
+                account:action.data,
+                role:action.data.role
             }
         default:
             return state;
