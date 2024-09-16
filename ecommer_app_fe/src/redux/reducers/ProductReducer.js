@@ -41,7 +41,12 @@ const ProductReducer = (state = initialState, action) => {
             return action.data
         case "UPDATE_PRODUCT":
             return state
-        
+
+        case "GET_PRODUCT_DELETED":
+            return action.data
+    
+        case "DELETED_PERMANENTLY_PRODUCT":
+            return state
         default:
             return state;
     }

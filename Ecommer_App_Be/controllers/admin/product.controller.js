@@ -33,6 +33,32 @@ module.exports.index = async(req,res)=>{
     
 }
 
+// [GET] /api/admin/products/deleted
+module.exports.deleted = async(req,res)=>{
+    try{
+
+        let find= {
+            deleted:true
+        }
+        
+
+        
+        const products = await Product.find(find)
+    
+        // console.log(products);
+        res.json({
+            code:200,
+            data:products
+        })
+    }catch(e){
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+    
+}
+
 // [GET] /api/admin/products/detail/:id
 module.exports.detail = async(req,res)=>{
     
@@ -155,14 +181,28 @@ module.exports.delete = async(req,res)=>{
         })
     }
 }
-// [POST] /api/admin/products
+// [POST] /api/admin/products/create
 module.exports.create = async(req,res)=>{
     try{
        
-       console.log(req.body);
-        req.body.price = parseFloat(req.body.price )
-        req.body.discountPercentage = parseFloat(req.body.discountPercentage )
-        req.body.stock = parseInt(req.body.stock )
+    //    console.log(req.body);
+        if(req.body.price){
+            req.body.price = parseFloat(req.body.price )
+        }
+        else{
+            req.body.price=1    
+        }
+        if(req.body.discountPercentage){
+            req.body.discountPercentage = parseInt(req.body.discountPercentage )
+        }else{
+            req.body.discountPercentage = 0
+        }
+        if( req.body.stock){
+            req.body.stock = parseInt(req.body.stock )
+        }
+        else{
+            req.body.stock=1
+        }
     
         
         if(!req.body.position){
@@ -178,6 +218,7 @@ module.exports.create = async(req,res)=>{
         //      req.body.thumbnail = req.file.path;
         // }
 
+    //    console.log(req.body);
 
         const product = new Product(req.body)
         await product.save()
@@ -224,7 +265,7 @@ module.exports.edit = async(req,res)=>{
         // console.log(req.body.position);
         
         if(!req.body.position){
-            console.log(req.body);
+            // console.log(req.body);
             const countProduct = await Product.countDocuments();
             req.body.position= countProduct+1
             
@@ -243,6 +284,30 @@ module.exports.edit = async(req,res)=>{
         res.json({
             code:200,
             message:"Cập nhật thành công"
+        })
+        
+    }catch(e){
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+    
+}
+
+module.exports.deletedPermanently =async(req,res)=>{
+    
+    try{
+      
+        // console.log(req.params.id);
+        await Product.deleteOne({_id:req.params.id})
+        
+        
+        // await Product.updateOne(find,req.body)
+        
+        res.json({
+            code:200,
+            message:"Đã xóa vĩnh viễn"
         })
         
     }catch(e){

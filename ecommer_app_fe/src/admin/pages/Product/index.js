@@ -213,7 +213,8 @@ function Product() {
                         fontWeight: '300'
                     }}
                     bordered={true}
-                    size="middle" className="mr-8 mb-6 rounded-md"
+                    size="middle" className="mr-8 mb-6 rounded-md mt-4"
+                    
                 >
                     <div className="flex items-center justify-between">
                         <FilterStatus currentStatus={currentStatus} handleStatusClick={handleStatusClick} />

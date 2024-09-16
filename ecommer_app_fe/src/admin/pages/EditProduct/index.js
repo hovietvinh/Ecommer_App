@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailAction, getProductsAction, updateProductAction } from "../../../redux/actions/ProductAction";
 import { Form, Radio, Input, InputNumber, Button, message } from "antd";
 import UploadImg from "../../components/Upload/index"; // Adjust the import path based on your folder structure
+import RichTextEditor from '../../components/RichTextEditor';
+import { getProductCategoryAction } from '../../../redux/actions/ProductCategoryAction';
+import Tree from '../../components/Tree';
 
 function EditProduct() {
   const { collapsed } = useOutletContext();
@@ -14,15 +17,31 @@ function EditProduct() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [imageFile, setImageFile] = useState(null);
+  const stateProductCategory = useSelector(state=>state.ProductCategoryReducer)
+
+  
+  const [editorContent, setEditorContent] = useState("");
+
+  const handleEditorChange = (content, editor) => {
+    setEditorContent(content);
+    // console.log('Nội dung đã thay đổi:', content);
+  };
 
   useEffect(() => {
     dispatch(getProductDetailAction(id));
+    dispatch(getProductCategoryAction())
+
   }, [dispatch, id]);
+
+  const [value, setValue] = useState();
+  const onChange = (newValue) => {
+      setValue(newValue);
+  };
 
   useEffect(() => {
     if (product && typeof product === 'object' && !Array.isArray(product)) {
-      console.log(product);
       form.setFieldsValue(product);
+      setEditorContent(product.description)
       setImageFile(null); // Reset image file to allow image upload if necessary
     }
   }, [product, form]);
@@ -31,6 +50,9 @@ function EditProduct() {
     setImageFile(file);
   };
 
+  
+
+  console.log(product);
   const finish = async (values) => {
     const formData = new FormData();
     Object.keys(values).forEach(key => {
@@ -73,8 +95,13 @@ function EditProduct() {
             <Input />
           </Form.Item>
 
+          <Form.Item label="Danh mục" name="product_category_id">
+                     
+            <Tree value={value} onChange={onChange} treeData={stateProductCategory.tree} />
+          </Form.Item>
+
           <Form.Item label="Mô tả" name="description">
-            <Input.TextArea rows={4} />
+            <RichTextEditor editorContent={editorContent} handleEditorChange={handleEditorChange} />
           </Form.Item>
 
           <Form.Item label="Giá" name="price">

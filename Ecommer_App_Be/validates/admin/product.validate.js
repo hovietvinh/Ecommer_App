@@ -1,5 +1,5 @@
 module.exports.titleProduct = (req,res,next)=>{
-
+    // console.log(req.body);
     if(!req.body.title){
         res.json({
             code:400,

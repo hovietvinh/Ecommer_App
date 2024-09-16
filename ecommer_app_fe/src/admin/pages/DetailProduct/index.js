@@ -22,7 +22,7 @@ function DetailProduct() {
             // console.log("vay");
             setItems([
                 { key: 'title', label: 'Tiêu đề', children: product.title || 'N/A', span: 3 },
-                { key: 'description', label: 'Mô tả', children: product.description || 'N/A', span: 3 },
+                { key: 'description', label: 'Mô tả', children: <span dangerouslySetInnerHTML={{ __html: product.description || 'N/A' }} />, span: 3 },
                 { key: 'price', label: 'Giá', children: `$${product.price || '0'}`, span: 3 },
                 { key: 'discount', label: '% Giảm giá', children: `${product.discountPercentage || '0'}%`, span: 3 },
                 { key: 'stock', label: 'Số lượng', children: product.stock || 'N/A' , span: 3},

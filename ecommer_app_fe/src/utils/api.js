@@ -13,6 +13,20 @@ const getProductsApi = async()=>{
         }
     }
 }
+const deletedPermanentlyProductApi = async(id)=>{
+    try {
+        // console.log(1);
+        const URL_LOGIN =`/api/admin/products/deletedPermanently/${id}`
+        // console.log(URL_LOGIN);
+        const response = await axios.post(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 const getProductsAdminApi = async(params = {})=>{
     try {
         const URL_LOGIN ='/api/admin/products'
@@ -131,6 +145,212 @@ const getProductDetaiSluglApi= async(slug)=>{
         }  
     }
 }
+const createProductCategoryApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/admin/products-category/create`
+        // console.log(data);
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+        
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+const getProductCategoryAdminApi = async()=>{
+    try {
+        // console.log(1);
+        const URL_LOGIN ='/api/admin/products-category'
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+const getProductDeletedApi = async()=>{
+    try {
+      
+       
+        const URL_LOGINPRODUCT = '/api/admin/products/deleted'
+        const responseP = await axios.get(URL_LOGINPRODUCT)
+        return responseP
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+const getProductCategoryDeletedApi = async()=>{
+    try {
+      
+       
+        const URL_LOGIN = '/api/admin/products-category/deleted'
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+const getProductCategoryDetailApi = async(id)=>{
+    try {
+        // console.log(123);
+        const URL_LOGIN =`/api/admin/products-category/detail/${id}`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+const updateProductCategoryApi = async(id,values)=>{
+    try {
+        const URL_LOGIN =`/api/admin/products-category/edit/${id}`
+        const response = await axios.patch(URL_LOGIN,values)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+const deleteProductCategoryApi = async(id)=>{
+    try {
+        const URL_LOGIN =`/api/admin/products-category/delete/${id}`
+        const response = await axios.delete(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+
+const createRoleApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/admin/roles/create`
+        // console.log(data);
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+        
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+const getRolesApi = async()=>{
+    try {
+        // console.log(1);
+        const URL_LOGIN ='/api/admin/roles'
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+
+const getRoleDetailApi = async(id)=>{
+    try {
+        // console.log(123);
+        const URL_LOGIN =`/api/admin/roles/detail/${id}`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+
+const updatePermissionsApi = async(data)=>{
+    try {
+        // console.log(123);
+        const URL_LOGIN =`/api/admin/roles/permissions`
+        const response = await axios.patch(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+
+const createAccountApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/admin/accounts/create`
+        // console.log(data);
+        const response = await axios.post(URL_LOGIN,data)
+        return response
+        
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+const getAccountsApi = async()=>{
+    try {
+      
+        const URL_LOGIN ='/api/admin/accounts'
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+
+const loginAccountsApi = async(data)=>{
+    try {
+      
+        const URL_LOGIN ='/api/admin/auth/login'
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 export {
     getProductsApi,
     getProductsAdminApi,
@@ -140,5 +360,20 @@ export {
     createProductApi,
     getProductDetailApi,
     updateProductApi,
-    getProductDetaiSluglApi
+    getProductDetaiSluglApi,
+    createProductCategoryApi,
+    getProductCategoryAdminApi,
+    getProductDeletedApi,
+    getProductCategoryDeletedApi,
+    getProductCategoryDetailApi,
+    updateProductCategoryApi,
+    deleteProductCategoryApi,
+    deletedPermanentlyProductApi,
+    createRoleApi,
+    getRolesApi,
+    getRoleDetailApi,
+    updatePermissionsApi,
+    createAccountApi,
+    getAccountsApi,
+    loginAccountsApi
 }

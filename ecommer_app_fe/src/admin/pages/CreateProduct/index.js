@@ -1,19 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, InputNumber, Button, Radio, Input } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
 import { createProductAction } from '../../../redux/actions/ProductAction';
 import BoxHead from '../../components/BoxHead';
 import UploadImg from '../../components/Upload';
+import RichTextEditor from '../../components/RichTextEditor';
+import { getProductCategoryAction } from '../../../redux/actions/ProductCategoryAction';
+import Tree from '../../components/Tree';
 
 function CreateProduct() {
+  
   const { collapsed } = useOutletContext();
   const [form] = Form.useForm();
-  const [inputPrice, setInputPrice] = useState(0);
+  const [inputPrice, setInputPrice] = useState(1);
   const [inputDiscount, setInputDiscount] = useState(0);
   const [inputStock, setInputStock] = useState(1);
   const [imageFile, setImageFile] = useState(null);  // State for image file
   const dispatch = useDispatch();
+  const [editorContent, setEditorContent] = useState('');
+  const stateProductCategory = useSelector(state=>state.ProductCategoryReducer)
+
+  useEffect(()=>{
+    const getProductCategory = ()=>{
+        dispatch(getProductCategoryAction())
+    }
+    getProductCategory()
+  },[dispatch])  
+  const [value, setValue] = useState();
+  const onChange = (newValue) => {
+      setValue(newValue);
+  };
+  const handleEditorChange = (content, editor) => {
+    setEditorContent(content);
+    // console.log('Nội dung đã thay đổi:', content);
+  };
 
   const handleImageSelect = (file) => {
     setImageFile(file);  // Save the image file when selected
@@ -31,14 +52,16 @@ function CreateProduct() {
     if (imageFile) {
       formData.append('thumbnail', imageFile);  // 'thumbnail' must match backend field name
     }
+
+    if(editorContent){
+      formData.set("description",editorContent)
+    }
   
-    // Log FormData content
-    
-    // console.log(formData);
   
-    // Dispatch the action with formData
     dispatch(createProductAction(formData));
+  
     
+    setEditorContent("");
     form.resetFields();
   };
   
@@ -53,14 +76,18 @@ function CreateProduct() {
           layout="vertical"
           className="mt-5 mr-8"
           onFinish={finish}
-          initialValues={{ price: 0, discountPercentage: 0, stock: 1, status: 'active' }}
+          initialValues={{ price: 1, discountPercentage: 0, stock: 1, status: 'active' }}
         >
           <Form.Item label="Tiêu đề" name="title" rules={[{ required: true, message: 'Vui lòng nhập tiêu đề sản phẩm!' }]}>
             <Input />
           </Form.Item>
+          <Form.Item label="Danh mục" name="product_category_id">
+                     
+            <Tree value={value} onChange={onChange} treeData={stateProductCategory.tree} />
+          </Form.Item>
 
           <Form.Item label="Mô tả" name="description">
-            <Input.TextArea rows={4} />
+            <RichTextEditor handleEditorChange={handleEditorChange} editorContent={editorContent}/>
           </Form.Item>
 
           <Form.Item label="Giá" name="price">

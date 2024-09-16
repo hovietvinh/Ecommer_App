@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuUnfoldOutlined, MenuFoldOutlined, FileAddOutlined, DashboardOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { MenuUnfoldOutlined,UserOutlined,SettingOutlined,AuditOutlined,DeleteOutlined, MenuFoldOutlined, FileAddOutlined, DashboardOutlined, ShoppingCartOutlined,UnorderedListOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { NavLink, useLocation } from 'react-router-dom';
 
@@ -16,24 +16,46 @@ function Sider(props) {
             className: 'text-white bg-transparent hover:bg-gray-700',
         },
         {
-            key: '1',
+            key: "/admin/dashboard",
             icon: <DashboardOutlined />,
             label: <NavLink to="/admin/dashboard">Tổng quan</NavLink>
         },
         {
-            key: '2',
+            key: "/admin/products",
             icon: <ShoppingCartOutlined />,
-            label: <NavLink to="/admin/products">Sản phẩm</NavLink>
+            label: <NavLink to="/admin/products">Danh sách sản phẩm</NavLink>
         },
         {
-            key: '3',
-            icon: <FileAddOutlined />,
-            label: <NavLink to="/admin/products/create">Thêm sản phẩm</NavLink>,
+            key:"/admin/products-category",
+            icon: <UnorderedListOutlined />,
+            label: <NavLink to="/admin/products-category">Danh mục sản phẩm</NavLink>,
         },
+        {
+            key:"/admin/roles",
+            icon:<AuditOutlined/>,
+            label:<NavLink to="/admin/roles">Nhóm quyền</NavLink>
+        },
+        {
+            key:"/admin/roles/permissions",
+            icon:<SettingOutlined/>,
+            label:<NavLink to="/admin/roles/permissions">Phân quyền</NavLink>
+        },
+        {
+            key:"/admin/accounts",
+            icon:<UserOutlined/>,
+            label:<NavLink to="/admin/accounts">Danh sách tài khoản</NavLink>
+         
+        },
+        {
+            key:"/admin/records/delete",
+            icon: <DeleteOutlined />,
+            label: <NavLink to="/admin/records/delete">Thùng rác</NavLink>,
+        },
+    
+        
     ];
 
-    const selectedKey = location.pathname === '/admin/products/create' ? '3' :
-                        location.pathname === '/admin/products' ? '2' : location.pathname === '/admin/dashboard'?'1':"";
+    const selectedKey = location.pathname 
 
     return (
         <div className='w-[210px] text-white fixed top-[56px] left-0 h-screen'>

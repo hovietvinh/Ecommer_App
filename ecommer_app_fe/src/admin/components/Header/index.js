@@ -11,6 +11,11 @@ function Header() {
                                 <NavLink className="text-[24px] font-bold text-white" to="/admin/dashboard">Admin</NavLink>
                             </div>
                         </div>
+                        <div className="w-3/4">
+                            <div className="text-right">
+                                <NavLink className="text-[16px] font-normal bg-red-500 p-2 transition-all duration-500 hover:bg-red-800  text-white">Đăng xuất</NavLink>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-import { createProductApi, deleteProductApi, getProductDetailApi, getProductDetaiSluglApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateProductApi, updateStatusProductApi } from "../../utils/api"
+import { createProductApi,getProductDeletedApi, deleteProductApi, getProductDetailApi, getProductDetaiSluglApi, getProductsAdminApi, getProductsApi, updateMultiApi, updateProductApi, updateStatusProductApi, deletedPermanentlyProductApi } from "../../utils/api"
 import { notification } from 'antd';
 
 export const getProductsAction = ()=>{
@@ -249,6 +249,63 @@ export const getProductDetaiSluglAction = (slug)=>{
             notification.error({
                 message:error.message,
                 // description: error.message
+            })
+        }
+    }
+}
+
+export const getProductDeletedAction = ()=>{
+    return async(dispatch)=>{
+        try {
+            const response = await getProductDeletedApi()
+            if(response.code==200){
+                dispatch({
+                    type: "GET_PRODUCT_DELETED",
+                    data:response.data
+                });
+               
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại" ,
+                    description: response.message
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:error.message,
+                // description: error.message
+            })
+        }
+    }
+}
+
+export const deletedPermanentlyProductAction = (id)=>{
+    return async(dispatch)=>{
+        try {
+            // console.log(data);
+            const response = await deletedPermanentlyProductApi(id)
+            
+            if(response.code==200){
+                dispatch({
+                    type: "DELETED_PERMANENTLY_PRODUCT",
+                    // payload:id
+                });
+                notification.success({
+                    message:response.message
+                   
+                })
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại code: " ,
+                    description: response.message
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
             })
         }
     }
