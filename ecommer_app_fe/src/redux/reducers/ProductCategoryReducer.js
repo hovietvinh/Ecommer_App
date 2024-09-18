@@ -34,7 +34,7 @@ const ProductCategoryReducer = (state = initialState, action) => {
         case "DELETE_PRODUCT_CATEGORY":
             return {
                 ...state,
-                deleted:action.data
+                productsCategory: state.productsCategory.filter(productsCategory => productsCategory._id !== productsCategory.payload),
             }
         default:
             return state;

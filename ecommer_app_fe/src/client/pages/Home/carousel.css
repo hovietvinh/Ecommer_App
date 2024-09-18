@@ -1,0 +1,34 @@
+.custom-carousel .slick-prev, 
+.custom-carousel .slick-next {
+  /* background-color: black !important; Thay đổi màu nền */
+  /* border-radius: 50%;
+  width: 40px;
+  height: 40px; */
+  color: rgb(65, 116, 203) ;
+  z-index: 2;
+}
+
+.custom-carousel .slick-prev:before, 
+.custom-carousel .slick-next:before {
+  color: black !important; /* Thay đổi màu mũi tên */
+  font-size: 20px !important; /* Điều chỉnh kích thước mũi tên */
+}
+
+.custom-carousel .slick-prev:hover:before, 
+.custom-carousel .slick-next:hover:before {
+  color: black !important; /* Thay đổi màu khi hover */
+}
+
+
+
+.custom-carousel .slick-dots li button {
+    background-color: blue !important; /* Màu nền của các chấm */
+  }
+  
+  .custom-carousel .slick-dots li.slick-active button {
+    background-color: rgb(65, 116, 203) !important; /* Màu của chấm khi được chọn */
+  }
+  
+  .custom-carousel .slick-dots li button:before {
+    color: transparent;
+  }

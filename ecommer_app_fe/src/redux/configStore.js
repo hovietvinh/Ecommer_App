@@ -5,6 +5,8 @@ import ProductCategoryReducer from "./reducers/ProductCategoryReducer"
 import RoleReducer from "./reducers/RoleReducer"
 import AccountReducer from "./reducers/AccountReducer"
 import AuthReducer from "./reducers/AuthReducer"
+import ProductCategoryReducerClient from "./client/reducers/ProductCategoryReducer"
+import ProductReducerClient from "./client/reducers/ProductReducer"
 
 
 const rootReducer = combineReducers({
@@ -12,7 +14,9 @@ const rootReducer = combineReducers({
     ProductCategoryReducer,
     RoleReducer,
     AccountReducer,
-    AuthReducer
+    AuthReducer,
+    ProductCategoryReducerClient,
+    ProductReducerClient
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

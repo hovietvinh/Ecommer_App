@@ -38,7 +38,7 @@ function ChangeMulti(props) {
             }
             else{
 
-            
+               
                 dispatch(updateMultiAction(selectedAction,selectedRowKeys))
                     .then(() => {
                         dispatch(getProductsAdminAction()); 

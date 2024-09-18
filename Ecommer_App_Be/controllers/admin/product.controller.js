@@ -318,3 +318,25 @@ module.exports.deletedPermanently =async(req,res)=>{
     }
     
 }
+
+// [PATCH] /api/admin/products/returnDeleted
+module.exports.returnDeleted = async(req,res)=>{
+    
+    try {
+        const {id} = req.params
+        await Product.updateOne({_id:id},{
+            deleted:false,
+        })
+
+        res.json({
+            code:200,
+            message:"Khôi phục sản phẩm thành công"
+        })
+    } catch (error) {
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+    
+}

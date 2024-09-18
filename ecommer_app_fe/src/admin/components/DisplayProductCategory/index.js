@@ -18,7 +18,6 @@ const DisplayProductCategory = () => {
         }
         getProductCategory()
     },[dispatch])
-    // console.log(stateProductCategory.productsCategory);
     const handleAddCategoryClick = () => {
         navigate('/admin/products-category/create'); 
     };
@@ -34,7 +33,7 @@ const DisplayProductCategory = () => {
     console.log(stateProductCategory);
     return (
         <div className='mt-4'>
-            {stateProductCategory.productsCategory.length>0 && (
+            {stateProductCategory.productsCategory&& stateProductCategory.productsCategory.length>0 && (
                 <Card
                 title={
                     <Row justify="space-between" align="middle">
@@ -84,7 +83,7 @@ const DisplayProductCategory = () => {
                                     title={<h3>{category.title}</h3>}
                                     description={
                                         <>
-                                            <p><strong>Danh mục cha: </strong> {category.parent_id?(category.infoParent.title):('') }</p>
+                                            <p><strong>Danh mục cha: </strong> {category.infoParent?(category.infoParent.title):('') }</p>
                                             <div
                                                 className="prose prose-lg max-w-none"
                                                 dangerouslySetInnerHTML={{

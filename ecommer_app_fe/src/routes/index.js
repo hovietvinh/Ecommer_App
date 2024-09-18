@@ -23,6 +23,7 @@ import PrivateRoute from "../admin/pages/PrivateRoute";
 import RoleBasedRoute from "../admin/pages/RoleBasedRoute";
 import { Navigate } from "react-router-dom";
 import Error from "../admin/pages/403";
+import Home from "../client/pages/Home";
 
 export const routes = [
     {
@@ -31,7 +32,7 @@ export const routes = [
         children: [
             {
                 path: "/",
-                element: <>123</>,
+                element: <Home/>,
             },
             {
                 path: "/products",
@@ -39,7 +40,7 @@ export const routes = [
             },
             {
                 path: "/products/:slug",
-                element: <DetailProductClient />,
+                element: <Product/>,
             }
         ],
     },

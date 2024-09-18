@@ -9,7 +9,7 @@ function Sider(props) {
     const { collapsed, toggleCollapsed } = props;
     const location = useLocation();
     const stateAuth = useSelector(state=>state.AuthReducer)
-    console.log(stateAuth.role.permissions);
+    // console.log(stateAuth.role.permissions);
     const userPermissions = stateAuth.role?.permissions || [];
 
     // Hàm kiểm tra xem người dùng có quyền cụ thể không

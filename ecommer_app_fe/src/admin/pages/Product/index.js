@@ -18,7 +18,7 @@ function Product() {
     const currentStatus = searchParams.get('status');
     const [form] = Form.useForm();
     const dispatch = useDispatch();
-    const products = useSelector(state => state.ProductReducer);
+    const stateProduct = useSelector(state => state.ProductReducer);
 
     useEffect(() => {
         dispatch(getProductsAdminAction(params));
@@ -39,7 +39,10 @@ function Product() {
     };
 
     const handleDelete = (id) => {
-        dispatch(deleteProductAction(id));
+        dispatch(deleteProductAction(id))
+            .then(()=>{
+                dispatch(getProductsAdminAction())
+            })
     };
 
     const [inputValues, setInputValues] = useState({}); // State to manage input values
@@ -222,7 +225,7 @@ function Product() {
                     </div>
                 </Card>
 
-                {products.length > 0 ? (
+                {stateProduct.products &&stateProduct.products.length > 0 ? (
                     <Card
                         title="Danh sách"
                         bordered={false}
@@ -251,12 +254,41 @@ function Product() {
                             className="mr-8 mt-5"
                             rowSelection={rowSelection}
                             columns={columns}
-                            dataSource={products}
+                            dataSource={stateProduct.products}
                             bordered
+                            pagination={false}
                         />
                     </Card>
                 ) : (
-                    <Empty />
+                    <>
+                        <Card
+                        title="Danh sách"
+                        bordered={false}
+                        size="middle" className="mr-8 mb-6"
+                        headStyle={{
+                            backgroundColor: '#edf2f7',
+                            color: '#2d3748',
+                            padding: '16px',
+                            borderRadius: '0.375rem 0.375rem 0 0',
+                            width: '100%',
+                            boxSizing: 'border-box',
+                            fontWeight: '300'
+                        }}
+                    >
+                        <Space align="center" className="pr-9" style={{ width: '100%', justifyContent:"flex-end" }}>
+                                
+                                <NavLink to="/admin/products/create" className={"text-right"}>
+                                    <Button type="text" className="border-1 border-green-500 text-green-500 hover:bg-green-500 hover:text-white" >Thêm mới</Button>
+                                </NavLink>
+
+                            </Space>
+
+                            <Empty />
+
+                    </Card>
+                        
+                        
+                    </>
                 )}
             </div>
         </>

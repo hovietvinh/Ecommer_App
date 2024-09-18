@@ -2,17 +2,20 @@ import { useEffect ,useState} from "react";
 import BoxHead from "../../components/BoxHead/index"
 import { useDispatch, useSelector } from "react-redux";
 import { useOutletContext,NavLink } from "react-router-dom";
-import { deletedPermanentlyProductAction, getProductDeletedAction } from "../../../redux/actions/ProductAction";
+import { deletedPermanentlyProductAction, getProductDeletedAction, getProductsAdminAction, returnDeletedAction } from "../../../redux/actions/ProductAction";
 import { getProductCategoryDeletedAction } from "../../../redux/actions/ProductCategoryAction";
 import { Button, Card, Empty, Table,Tag } from "antd";
 
 function RecordsDelete() {
     const {collapsed} = useOutletContext()
     const dispatch = useDispatch()
-    const products = useSelector(state=>state.ProductReducer)
+    const stateProducts = useSelector(state=>state.ProductReducer)
+    console.log(stateProducts.deleted);
     
     useEffect(()=>{
         const fetchApi = ()=>{
+            dispatch(getProductsAdminAction())
+            // dispatch(getProductsAdminAction())
             dispatch(getProductDeletedAction())
           
         }
@@ -20,7 +23,10 @@ function RecordsDelete() {
     },[])
 
     const setReturn =(id)=>{
-        console.log(id);
+        dispatch(returnDeletedAction(id))
+            .then(()=>{
+                dispatch(getProductDeletedAction())
+            })
     }
     const deletedAlways = (id)=>{
         dispatch(deletedPermanentlyProductAction(id))
@@ -78,16 +84,13 @@ function RecordsDelete() {
             ),
             className: "w-[260px]"
         },
-    ];
-
-    
-    // console.log(products,stateProductsCategory.productsCategory);
+    ];    
     return (
         <>
             <div className={`transition-all duration-300 ${collapsed ? "ml-[100px] w-[calc(100%-100px)]" : "ml-[230px] w-[calc(100%-230px)]"} mt-[20px] mr-[20px]`}>
                 <BoxHead text="Thùng rác"/>
 
-                {products.length > 0 ? (
+                {stateProducts.deleted && stateProducts.deleted.length > 0 ? (
                     <Card
                         title="Danh sách"
                         bordered={false}
@@ -110,7 +113,7 @@ function RecordsDelete() {
                             className="mr-8 mt-5"
                             rowSelection={rowSelection}
                             columns={columns}
-                            dataSource={products}
+                            dataSource={stateProducts.deleted}
                             bordered
                         />
                     </Card>

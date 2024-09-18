@@ -1,18 +1,18 @@
 import axios from "./axios.customize"
 
-const getProductsApi = async()=>{
-    try {
-        // console.log(1);
-        const URL_LOGIN ='/api/products'
-        const response = await axios.get(URL_LOGIN)
-        return response
-    } catch (error) {
-        return {
-            code:400,
-            message:"Error in axios!"
-        }
-    }
-}
+// const getProductsApi = async()=>{
+//     try {
+//         // console.log(1);
+//         const URL_LOGIN ='/api/products'
+//         const response = await axios.get(URL_LOGIN)
+//         return response
+//     } catch (error) {
+//         return {
+//             code:400,
+//             message:"Error in axios!"
+//         }
+//     }
+// }
 const deletedPermanentlyProductApi = async(id)=>{
     try {
         // console.log(1);
@@ -364,8 +364,22 @@ const checkAuthApi = async()=>{
         }
     }
 }
+const returnDeletedApi = async(id)=>{
+    try {
+        // console.log(1);
+        const URL_LOGIN =`/api/admin/products/returnDeleted/${id}`
+        // console.log(URL_LOGIN);
+        const response = await axios.patch(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 export {
-    getProductsApi,
+    // getProductsApi,
     getProductsAdminApi,
     updateStatusProductApi,
     updateMultiApi,
@@ -389,5 +403,6 @@ export {
     createAccountApi,
     getAccountsApi,
     loginAccountsApi,
-    checkAuthApi
+    checkAuthApi,
+    returnDeletedApi
 }

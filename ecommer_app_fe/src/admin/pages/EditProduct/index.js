@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BoxHead from "../../components/BoxHead";
 import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetailAction, getProductsAction, updateProductAction } from "../../../redux/actions/ProductAction";
+import { getProductDetailAction, getProductsAdminAction, updateProductAction } from "../../../redux/actions/ProductAction";
 import { Form, Radio, Input, InputNumber, Button, message } from "antd";
 import UploadImg from "../../components/Upload/index"; // Adjust the import path based on your folder structure
 import RichTextEditor from '../../components/RichTextEditor';
@@ -13,11 +13,13 @@ function EditProduct() {
   const { collapsed } = useOutletContext();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.ProductReducer);
+  const stateProducts = useSelector((state) => state.ProductReducer);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [imageFile, setImageFile] = useState(null);
   const stateProductCategory = useSelector(state=>state.ProductCategoryReducer)
+
+  // console.log(product);
 
   
   const [editorContent, setEditorContent] = useState("");
@@ -39,12 +41,15 @@ function EditProduct() {
   };
 
   useEffect(() => {
-    if (product && typeof product === 'object' && !Array.isArray(product)) {
-      form.setFieldsValue(product);
-      setEditorContent(product.description)
+    // console.log(123);
+    if (stateProducts.products && typeof stateProducts.products === 'object' && !Array.isArray(stateProducts.products)) {
+      form.setFieldsValue(stateProducts.products);
+      // console.log(product);
+      // console.log(form.getFieldValue());
+      setEditorContent(stateProducts.products.description)
       setImageFile(null); // Reset image file to allow image upload if necessary
     }
-  }, [product, form]);
+  }, [stateProducts.products, form]);
 
   const handleImageSelect = (file) => {
     setImageFile(file);
@@ -52,7 +57,7 @@ function EditProduct() {
 
   
 
-  console.log(product);
+  // console.log(product);
   const finish = async (values) => {
     const formData = new FormData();
     Object.keys(values).forEach(key => {
@@ -64,7 +69,7 @@ function EditProduct() {
 
     dispatch(updateProductAction(id, formData))
       .then(()=>{
-        dispatch(getProductsAction())
+        dispatch(getProductsAdminAction())
       });
     navigate('/admin/products');
     
@@ -100,6 +105,13 @@ function EditProduct() {
             <Tree value={value} onChange={onChange} treeData={stateProductCategory.tree} />
           </Form.Item>
 
+          <Form.Item name="featured">
+            <Radio.Group >
+              <Radio value="1">Nổi bạt</Radio>
+              <Radio value="0">Không</Radio>
+            </Radio.Group>
+          </Form.Item>
+
           <Form.Item label="Mô tả" name="description">
             <RichTextEditor editorContent={editorContent} handleEditorChange={handleEditorChange} />
           </Form.Item>
@@ -121,7 +133,7 @@ function EditProduct() {
           </Form.Item>
 
           <Form.Item label="Ảnh sản phẩm">
-            <UploadImg onImageSelect={handleImageSelect} defaultImage={product.thumbnail} />
+            <UploadImg onImageSelect={handleImageSelect} defaultImage={stateProducts.products.thumbnail} />
           </Form.Item>
 
           <Form.Item label="Trạng thái" name="status">

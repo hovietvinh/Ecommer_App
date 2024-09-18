@@ -76,7 +76,7 @@ function CreateProduct() {
           layout="vertical"
           className="mt-5 mr-8"
           onFinish={finish}
-          initialValues={{ price: 1, discountPercentage: 0, stock: 1, status: 'active' }}
+          initialValues={{ price: 1, discountPercentage: 0, stock: 1, status: 'active' ,featured:"0"}}
         >
           <Form.Item label="Tiêu đề" name="title" rules={[{ required: true, message: 'Vui lòng nhập tiêu đề sản phẩm!' }]}>
             <Input />
@@ -84,6 +84,13 @@ function CreateProduct() {
           <Form.Item label="Danh mục" name="product_category_id">
                      
             <Tree value={value} onChange={onChange} treeData={stateProductCategory.tree} />
+          </Form.Item>
+
+          <Form.Item name="featured">
+            <Radio.Group value="0">
+              <Radio value="1">Nổi bạt</Radio>
+              <Radio value="0">Không</Radio>
+            </Radio.Group>
           </Form.Item>
 
           <Form.Item label="Mô tả" name="description">

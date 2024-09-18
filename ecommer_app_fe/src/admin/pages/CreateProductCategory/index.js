@@ -40,7 +40,7 @@ function CreateProductCategory() {
         values.description = editorContent
         // console.log(values);
         dispatch(createProductCategoryAction(values))
-        navigate("/admin/products-category")
+        // navigate("/admin/products-category")
        
         setEditorContent("");
         form.resetFields();

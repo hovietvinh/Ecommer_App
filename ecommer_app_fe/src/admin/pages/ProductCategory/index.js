@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import { useOutletContext } from "react-router-dom";
-import { getProductCategoryAction } from "../../../redux/actions/ProductCategoryAction";
 import BoxHead from "../../components/BoxHead";
 import DisplayProductCategory from "../../components/DisplayProductCategory";
 

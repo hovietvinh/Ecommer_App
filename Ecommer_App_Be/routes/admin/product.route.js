@@ -15,7 +15,7 @@ router.delete("/delete/:id",controller.delete)
 router.post("/create",upload.single('thumbnail'), uploadImageToCloudinary,validate.titleProduct,controller.create)
 router.get("/detail/:id",controller.detail)
 router.patch("/edit/:id",upload.single('thumbnail'), uploadImageToCloudinary,validate.titleProduct,controller.edit)
-
+router.patch("/returnDeleted/:id",controller.returnDeleted)
 router.post("/deletedPermanently/:id",controller.deletedPermanently)
 
 module.exports = router
