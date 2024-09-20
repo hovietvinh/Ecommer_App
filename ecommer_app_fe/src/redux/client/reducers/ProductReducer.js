@@ -19,6 +19,11 @@ const ProductReducer = (state = initialState, action) => {
                 ...state,
                 products:action.data
             }
+        case "GET_PRODUCTS_BY_KEYWORD":
+            return {
+                ...state,
+                products:action.data
+            }
         default:
             return state;
     }

@@ -12,7 +12,7 @@ function Home() {
         }
         fetchApi()
     },[dispatch])
-    console.log(stateProducts.products);
+    // console.log(stateProducts.products);
     return (
         <>
             <Carousel/>

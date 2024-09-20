@@ -24,6 +24,7 @@ import RoleBasedRoute from "../admin/pages/RoleBasedRoute";
 import { Navigate } from "react-router-dom";
 import Error from "../admin/pages/403";
 import Home from "../client/pages/Home";
+import Search from "../client/pages/Search";
 
 export const routes = [
     {
@@ -45,6 +46,10 @@ export const routes = [
             {
                 path:"/products/detail/:slug",
                 element:<DetailProductClient/>
+            },
+            {
+                path:"/search",
+                element:<Search/>
             }
         ],
     },
