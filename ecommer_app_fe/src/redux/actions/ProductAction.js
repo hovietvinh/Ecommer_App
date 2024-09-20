@@ -228,31 +228,31 @@ export const updateProductAction =(id,values)=>{
     }
 }
 
-export const getProductDetaiSluglAction = (slug)=>{
-    return async(dispatch)=>{
-        try {
-            const response = await getProductDetaiSluglApi(slug)
-            if(response.code==200){
-                dispatch({
-                    type: "GET_DETAIL_PRODUCT",
-                    data:response.data
-                });
+// export const getProductDetaiSluglAction = (slug)=>{
+//     return async(dispatch)=>{
+//         try {
+//             const response = await getProductDetaiSluglApi(slug)
+//             if(response.code==200){
+//                 dispatch({
+//                     type: "GET_DETAIL_PRODUCT",
+//                     data:response.data
+//                 });
                
-            }
-            else{
-                notification.error({
-                    message:"Lấy dữ liệu thất bại" ,
-                    description: response.message
-                })
-            }
-        } catch (error) {
-            notification.error({
-                message:error.message,
-                // description: error.message
-            })
-        }
-    }
-}
+//             }
+//             else{
+//                 notification.error({
+//                     message:"Lấy dữ liệu thất bại" ,
+//                     description: response.message
+//                 })
+//             }
+//         } catch (error) {
+//             notification.error({
+//                 message:error.message,
+//                 // description: error.message
+//             })
+//         }
+//     }
+// }
 
 export const getProductDeletedAction = ()=>{
     return async(dispatch)=>{

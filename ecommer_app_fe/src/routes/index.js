@@ -41,6 +41,10 @@ export const routes = [
             {
                 path: "/products/:slug",
                 element: <Product/>,
+            },
+            {
+                path:"/products/detail/:slug",
+                element:<DetailProductClient/>
             }
         ],
     },

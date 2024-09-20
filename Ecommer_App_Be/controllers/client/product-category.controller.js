@@ -30,7 +30,7 @@ module.exports.index = async(req,res)=>{
                     // let newItem = {item};
                     let newItem={
                         value: item.slug,
-                        key:item._id,
+                        // key:item._id,
                         title:item.title
                     }
                    

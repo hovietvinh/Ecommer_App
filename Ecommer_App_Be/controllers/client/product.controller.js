@@ -23,39 +23,57 @@ module.exports.index = async(req,res)=>{
     
 }
 
-// module.exports.detail = async(req,res)=>{
+module.exports.detail = async(req,res)=>{
     
-//     try{
-//         const {slug} = req.params
-//         let find={
-//             deleted:false,
-//             slug:slug,
-//             status:"active"
-//         }
+    try{
+        const {slug} = req.params
+        // console.log(slug);
+        let find={
+            deleted:false,
+            slug:slug,
+            status:"active"
+        }
         
-//         const products = await Product.findOne(find)
+        const products = await Product.findOne(find)
         
-//         if(products){
-//             res.json({
-//                 code:200,
-//                 data:products
-//             })
-//         }
-//         else{
-//             res.json({
-//                 code:400,
-//                 message:"Sản phẩm đã bị xóa hoặc k tồn tại"
-//             })
-//         }
+
         
-//     }catch(e){
-//         res.json({
-//             code:400,
-//             message:"Error in BE"
-//         })
-//     }
+        if(products){
+            
+            if(products.product_category_id){
+                const infoCategory = await ProductCategory.findOne({_id:products.product_category_id})
+                let product= products.toObject()
+                product["infoCategory"] = infoCategory
+                res.json({
+                    code:200,
+                    data:product
+                })
+            }
+            else{
+                res.json({
+                    code:200,
+                    data:products
+                })
+            }
+            
+
+            
+        }
+        else{
+            res.json({
+                code:400,
+                message:"Sản phẩm đã bị xóa hoặc k tồn tại"
+            })
+        }
+        
+    }catch(e){
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
     
-// }
+}
 
 
 

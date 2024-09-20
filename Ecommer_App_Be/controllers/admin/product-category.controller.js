@@ -120,10 +120,23 @@ module.exports.deleted =async(req,res)=>{
 
         const data = await ProductCategory.find(find)
 
+        let newData = []
+        for(const item of data){
+            if(item.parent_id){
+                const Parent = await ProductCategory.findOne({ _id: item.parent_id });
+                let plainItem = item.toObject();  // Convert to plain JavaScript object
+                plainItem["infoParent"] = Parent;
+                newData.push(plainItem)
+            }
+            else{
+                newData.push(item)
+            }
+        }
+
         
         res.json({
             code:200,
-            data:data,
+            data:newData,
             // tree:createTree(data)
         })
     } catch (error) {
@@ -223,4 +236,52 @@ module.exports.delete =async(req,res)=>{
             message:"Error in BE"
         })
     }
+}
+
+//[GET] /api/admin/product-category/deletedPermanently/:id
+module.exports.deletedPermanently = async(req,res)=>{
+    try{
+        // console.log(req.params.id);
+        // console.log(req.params.id);
+        await ProductCategory.deleteOne({_id:req.params.id})
+        
+        
+        // await Product.updateOne(find,req.body)
+        
+        res.json({
+            code:200,
+            message:"Đã xóa vĩnh viễn"
+        })
+        
+    }catch(e){
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+}
+
+
+
+
+// [PATCH] /api/admin/products-category/returnDeleted/:id
+module.exports.returnDeleted = async(req,res)=>{
+    
+    try {
+        const {id} = req.params
+        await ProductCategory.updateOne({_id:id},{
+            deleted:false,
+        })
+
+        res.json({
+            code:200,
+            message:"Khôi phục sản phẩm thành công"
+        })
+    } catch (error) {
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+    
 }

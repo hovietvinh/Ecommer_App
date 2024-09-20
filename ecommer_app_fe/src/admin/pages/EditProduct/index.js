@@ -26,6 +26,7 @@ function EditProduct() {
 
   const handleEditorChange = (content, editor) => {
     setEditorContent(content);
+    // console.log(content);
     // console.log('Nội dung đã thay đổi:', content);
   };
 
@@ -66,6 +67,11 @@ function EditProduct() {
     if (imageFile) {
       formData.append('thumbnail', imageFile);
     }
+    if(editorContent){
+      formData.set("description",editorContent)
+    }
+
+
 
     dispatch(updateProductAction(id, formData))
       .then(()=>{

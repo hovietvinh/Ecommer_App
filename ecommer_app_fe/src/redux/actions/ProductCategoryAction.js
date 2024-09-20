@@ -1,4 +1,4 @@
-import { createProductCategoryApi, updateProductCategoryApi,getProductCategoryAdminApi, getProductCategoryDeletedApi, getProductCategoryDetailApi, deleteProductCategoryApi } from "../../utils/api";
+import { createProductCategoryApi, updateProductCategoryApi,getProductCategoryAdminApi, getProductCategoryDeletedApi, getProductCategoryDetailApi, deleteProductCategoryApi, deletedPermanentlyProductCategoryApi, returnDeletedProductCategoryApi } from "../../utils/api";
 import { notification } from 'antd';
 
 export const createProductCategoryAction = (data) => {
@@ -165,6 +165,70 @@ export const deleteProductCategoryAction =(id,values)=>{
             notification.error({
                 message:error.message,
                 // description: error.message
+            })
+        }
+    }
+}
+
+export const deletedPermanentlyProductCategoryAction = (id)=>{
+    return async(dispatch)=>{
+        try {
+            // console.log(data);
+            const response = await deletedPermanentlyProductCategoryApi(id)
+            
+            if(response.code==200){
+                dispatch({
+                    type: "DELETED_PERMANENTLY_PRODUCT_CATEGORY",
+                    payload:id
+                });
+                notification.success({
+                    message:response.message
+                   
+                })
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại code: " ,
+                    description: response.message
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
+            })
+        }
+    }
+}
+
+
+
+export const returnDeletedProductCategoryAction = (id)=>{
+    return async(dispatch)=>{
+        try {
+            // console.log(data);
+            const response = await returnDeletedProductCategoryApi(id)
+            
+            if(response.code==200){
+                dispatch({
+                    type: "RETURN_DELETED_PRODUCT_CATEGORY",
+                    payload:id
+                });
+                notification.success({
+                    message:response.message
+                   
+                })
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại code: " ,
+                    description: response.message
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
             })
         }
     }

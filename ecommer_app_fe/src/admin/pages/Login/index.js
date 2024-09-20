@@ -29,8 +29,11 @@ function Login() {
             if(access_token){
                 const auth =await dispatch(checkAuthAction())
                 console.log(auth);
-                if(auth.code==200){
+                if(auth && auth.code==200){
                     navigate("/admin/dashboard")
+                }
+                else{
+                    
                 }
             }
         }

@@ -1,4 +1,4 @@
-import { getProductsApi, getProductsBySlugCategoryApi } from "../../../utils/apiClient";
+import { getProductDetaiSluglApi, getProductsApi, getProductsBySlugCategoryApi } from "../../../utils/apiClient";
 import {notification} from "antd"
 export const getProductsAction = ()=>{
     return async(dispatch)=>{
@@ -55,6 +55,32 @@ export const getProductsBySlugCategoryAction = (slugCategory)=>{
                 description: error.message
             })
             return null
+        }
+    }
+}
+
+export const getProductDetaiSluglAction = (slug)=>{
+    return async(dispatch)=>{
+        try {
+            const response = await getProductDetaiSluglApi(slug)
+            if(response.code==200){
+                dispatch({
+                    type: "GET_DETAIL_PRODUCT",
+                    data:response.data
+                });
+               
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại" ,
+                    description: response.message
+                })
+            }
+        } catch (error) {
+            notification.error({
+                message:error.message,
+                // description: error.message
+            })
         }
     }
 }

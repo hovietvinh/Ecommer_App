@@ -9,5 +9,9 @@ router.post("/create",validate.titleProduct,controller.create)
 router.get("/detail/:id",controller.detail)
 router.patch("/edit/:id" ,validate.titleProduct,controller.edit)
 router.delete("/delete/:id" ,controller.delete)
+router.post("/deletedPermanently/:id",controller.deletedPermanently)
+router.patch("/returnDeleted/:id",controller.returnDeleted)
+
+
 
 module.exports = router

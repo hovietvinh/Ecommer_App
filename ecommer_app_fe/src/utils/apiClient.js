@@ -41,8 +41,23 @@ const getProductsApi = async()=>{
     }
 }
 
+const getProductDetaiSluglApi= async(slug)=>{
+    try {
+        // console.log(123);
+        const URL_LOGIN =`/api/products/detail/${slug}`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }  
+    }
+}
+
 export {
     getProductCategoryApi,
     getProductsApi,
-    getProductsBySlugCategoryApi
+    getProductsBySlugCategoryApi,
+    getProductDetaiSluglApi
 }

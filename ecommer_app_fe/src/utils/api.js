@@ -27,6 +27,20 @@ const deletedPermanentlyProductApi = async(id)=>{
         }
     }
 }
+const deletedPermanentlyProductCategoryApi = async(id)=>{
+    try {
+        // console.log(1);
+        const URL_LOGIN =`/api/admin/products-category/deletedPermanently/${id}`
+        // console.log(URL_LOGIN);
+        const response = await axios.post(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 const getProductsAdminApi = async(params = {})=>{
     try {
         const URL_LOGIN ='/api/admin/products'
@@ -132,19 +146,19 @@ const updateProductApi = async(id,values)=>{
     }
 }
 
-const getProductDetaiSluglApi= async(slug)=>{
-    try {
-        // console.log(123);
-        const URL_LOGIN =`/api/products/detail/${slug}`
-        const response = await axios.get(URL_LOGIN)
-        return response
-    } catch (error) {
-        return {
-            code:400,
-            message:"Error in axios!"
-        }  
-    }
-}
+// const getProductDetaiSluglApi= async(slug)=>{
+//     try {
+//         // console.log(123);
+//         const URL_LOGIN =`/api/products/detail/${slug}`
+//         const response = await axios.get(URL_LOGIN)
+//         return response
+//     } catch (error) {
+//         return {
+//             code:400,
+//             message:"Error in axios!"
+//         }  
+//     }
+// }
 const createProductCategoryApi = async(data)=>{
     try {
         const URL_LOGIN =`/api/admin/products-category/create`
@@ -364,6 +378,7 @@ const checkAuthApi = async()=>{
         }
     }
 }
+
 const returnDeletedApi = async(id)=>{
     try {
         // console.log(1);
@@ -378,6 +393,23 @@ const returnDeletedApi = async(id)=>{
         }
     }
 }
+const returnDeletedProductCategoryApi = async(id)=>{
+    try {
+        // console.log(1);
+        const URL_LOGIN =`/api/admin/products-category/returnDeleted/${id}`
+        // console.log(URL_LOGIN);
+        const response = await axios.patch(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+
+
+
 export {
     // getProductsApi,
     getProductsAdminApi,
@@ -387,7 +419,7 @@ export {
     createProductApi,
     getProductDetailApi,
     updateProductApi,
-    getProductDetaiSluglApi,
+    // getProductDetaiSluglApi,
     createProductCategoryApi,
     getProductCategoryAdminApi,
     getProductDeletedApi,
@@ -395,6 +427,7 @@ export {
     getProductCategoryDetailApi,
     updateProductCategoryApi,
     deleteProductCategoryApi,
+    deletedPermanentlyProductCategoryApi,
     deletedPermanentlyProductApi,
     createRoleApi,
     getRolesApi,
@@ -404,5 +437,6 @@ export {
     getAccountsApi,
     loginAccountsApi,
     checkAuthApi,
-    returnDeletedApi
+    returnDeletedApi,
+    returnDeletedProductCategoryApi
 }

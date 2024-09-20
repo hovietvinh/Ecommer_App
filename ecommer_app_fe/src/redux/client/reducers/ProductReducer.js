@@ -14,6 +14,11 @@ const ProductReducer = (state = initialState, action) => {
                 ...state,
                 products:action.data
             }
+        case "GET_DETAIL_PRODUCT":
+            return {
+                ...state,
+                products:action.data
+            }
         default:
             return state;
     }

@@ -45,7 +45,7 @@ function Product() {
                     {stateProducts.products.length>0?(
                         stateProducts.products.map(product=>(
                         
-                            <NavLink to={`/products/${product.slug}`} key={product._id}   className="rounded-lg overflow-hidden border border-gray-300">
+                            <NavLink to={`/products/detail/${product.slug}`} key={product._id}   className="rounded-lg overflow-hidden border border-gray-300">
                             <Badge.Ribbon text="Nổi bật" color="red" className={product.featured === "1" ? "m-1  rounded-md" : "hidden"} >
                             <div className="w-full aspect-[4/3] border border-gray-300">
                                <img className="w-full h-full object-cover" src={product.thumbnail?product.thumbnail:"https://lh4.googleusercontent.com/proxy/IEU20xZDxGIL6f-PIiD-uSnnbAflCtBb2ZSY3tXouFuAYAi-Ehi0ijol5w075iG5KkAICJI1dSpzy6LKGrpd4mxX6A0bJNvWBFpDajmZR97wXUfbXA"}></img>
