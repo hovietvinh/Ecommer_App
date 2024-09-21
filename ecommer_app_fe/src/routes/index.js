@@ -25,6 +25,7 @@ import { Navigate } from "react-router-dom";
 import Error from "../admin/pages/403";
 import Home from "../client/pages/Home";
 import Search from "../client/pages/Search";
+import Cart from "../client/pages/Cart";
 
 export const routes = [
     {
@@ -41,15 +42,19 @@ export const routes = [
             },
             {
                 path: "/products/:slug",
-                element: <Product/>,
+                element:  <Product />,
             },
             {
                 path:"/products/detail/:slug",
-                element:<DetailProductClient/>
+                element: <DetailProductClient/>
             },
             {
                 path:"/search",
                 element:<Search/>
+            },
+            {
+                path:"/cart",
+                element:<Cart/>
             }
         ],
     },

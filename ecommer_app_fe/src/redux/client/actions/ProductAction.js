@@ -90,7 +90,7 @@ export const getProductsByKeywordAction = (keyword)=>{
         try {
             const response = await getProductsByKeywordApi(keyword)
             if(response.code==200){
-                console.log(response);
+                // console.log(response);
                 dispatch({
                     type: "GET_PRODUCTS_BY_KEYWORD",
                     data:response.data

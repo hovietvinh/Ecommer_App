@@ -23,7 +23,7 @@ function App() {
 
     return (
         <>
-            <Carousel arrows className="custom-carousel">
+            <Carousel dots={false} arrows infinite={true} autoplay className="custom-carousel h-full">
                 <div className='featured'>
                     <div className="container max-w-[80%] mx-auto my-5">
                         <div className="grid grid-cols-1 gap-4">

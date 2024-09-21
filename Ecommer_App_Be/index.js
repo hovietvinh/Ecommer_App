@@ -14,8 +14,13 @@ database.connect();
 const app = express()
 const port = process.env.PORT
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 //fix cors fe
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3001', // Replace with your frontend URL
+    credentials: true, // Allow cookies to be sent across origins
+}))
 
 // body-parser
 app.use(bodyParser.json()); 

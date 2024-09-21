@@ -8,7 +8,8 @@ module.exports.index = async(req,res)=>{
             status:"active"
         }
         const products = await Product.find(find).sort({position:"desc"})
-    
+        
+        // req.cardId = "avc";
         
         res.json({
             code:200,

@@ -1,6 +1,6 @@
 import {  NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import { Button, Form, Image, Input } from 'antd';
-import {SearchOutlined} from "@ant-design/icons";
+import {SearchOutlined,ShoppingCartOutlined} from "@ant-design/icons";
 import Tree from "../Tree";
 import { useEffect } from "react";
 function Header({setValue,value}) {
@@ -50,10 +50,12 @@ function Header({setValue,value}) {
                             </Form>
                         </div>
                         <div className="p-0  m-0 flex-wrap gap-[20px] flex items-center justify-end">
+                        <Tree value={value} setValue={setValue}/>
                             <NavLink to="/" className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>Trang chủ</NavLink>
                             <NavLink to="/products" onClick={()=>{setValue(null)}} className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>Sản phẩm</NavLink>
                             {/* <NavLink className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>Danh mục</NavLink> */}
-                            <Tree value={value} setValue={setValue}/>
+                            
+                            <NavLink to="/cart" className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}><ShoppingCartOutlined style={{ fontSize: '24px' }} /> Giỏ hàng</NavLink>
                         </div>
                         
                     </div>

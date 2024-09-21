@@ -68,11 +68,58 @@ const getProductsByKeywordApi = async(keyword)=>{
         }
     }
 }
+const createCardIdApi = async()=>{
+    try {
+        const URL_LOGIN =`/api/cart/create`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+const pushProductIntoCartApi = async(productId,data)=>{
+    try {
+        const URL_LOGIN =`/api/cart/add/${productId}`
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+
+const getCartApi = async()=>{
+    try {
+        const URL_LOGIN =`/api/cart`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
 
 export {
     getProductCategoryApi,
     getProductsApi,
     getProductsBySlugCategoryApi,
     getProductDetaiSluglApi,
-    getProductsByKeywordApi
+    getProductsByKeywordApi,
+    createCardIdApi,
+    pushProductIntoCartApi,
+    getCartApi
 }

@@ -7,11 +7,11 @@ module.exports.index = async(req,res)=>{
     try{
 
         let find= {
-            deleted:false
-        }
+            deleted:false   
+        } 
 
 
-     
+      
         const accounts = await Account.find(find).select("-password")
 
         

@@ -1,3 +1,3 @@
 module.exports.dashboard = (req,res)=>{
-    res.json('testHome')
-}
+    res.json('testHome') 
+}  

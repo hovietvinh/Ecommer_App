@@ -12,10 +12,10 @@ function Product() {
         return (price - price*discount/100).toFixed(0);
     }
     const {slug} = useParams() 
-    console.log(slug);
+    // console.log(slug);
     const dispatch = useDispatch()
     let stateProducts = useSelector(state=>state.ProductReducerClient)
-    
+
     // console.log(cat);
     useEffect(()=>{
         const fetchApi = ()=>{

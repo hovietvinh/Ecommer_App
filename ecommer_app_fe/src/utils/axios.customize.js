@@ -1,10 +1,18 @@
 import axios from "axios"
+// const getCookie = (name) => {
+//   const value = `; ${document.cookie}`; // Append a semicolon for easier parsing
+//   const parts = value.split(`; ${name}=`); // Split by the cookie name
+//   if (parts.length === 2) return parts.pop().split(';').shift(); // Get the cookie value
+// };
+// document.cookie = `cardId=${getCookie("cardId")}; path=/`;
 
 // Set config defaults when creating the instance
 const instance = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'http://localhost:3000',
+    withCredentials:true// Ensure cookies are included in requests
   });
   
+// document.cookie = `cardID=${localStorage.getItem("cardId")}; path=/`;
   // Alter defaults after instance has been created
 //   instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
@@ -12,6 +20,9 @@ const instance = axios.create({
 instance.interceptors.request.use(function (config) {
     // Do something before request is sent
     config.headers.Authorization = `Bearer ${localStorage.getItem("access_token")}`;
+    // console.log(config);
+
+    
     return config;
   }, function (error) {
     // Do something with request error

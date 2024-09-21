@@ -5,6 +5,7 @@ import BoxHead from "../../components/BoxHead"
 import {Card,Descriptions,Tag,Image,Typography, Collapse, Row, Col, Form, Input, Button, notification} from "antd"
 import { getProductDetaiSluglAction } from "../../../redux/client/actions/ProductAction"
 import parse from "html-react-parser";
+import { pushProductIntoCartApi } from "../../../utils/apiClient"
 const { Paragraph } = Typography;
 
 function DetailProduct() {
@@ -27,9 +28,14 @@ function DetailProduct() {
     },[dispatch,slug])
     console.log(stateProducts.products);
     const [form] = Form.useForm()
-    const hanldeBuy = (e)=>{
+    const hanldeBuy = async(e)=>{
         if(parseInt(e.quantity)>0 && parseInt(e.quantity)<=stateProducts.products.stock ){
-            
+            const res=await pushProductIntoCartApi(stateProducts.products._id,e)
+            if(res.code==200){
+                notification.success({
+                    message:res.message
+                })
+            }
         }
         else{
             notification.error({
