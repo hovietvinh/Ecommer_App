@@ -26,7 +26,7 @@ function DetailProduct() {
         setProduct()
         
     },[dispatch,slug])
-    console.log(stateProducts.products);
+    // console.log(stateProducts.products);
     const [form] = Form.useForm()
     const hanldeBuy = async(e)=>{
         if(parseInt(e.quantity)>0 && parseInt(e.quantity)<=stateProducts.products.stock ){

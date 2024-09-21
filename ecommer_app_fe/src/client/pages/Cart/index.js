@@ -1,12 +1,13 @@
-import { Button, Form, Image, Input, Space, Table } from "antd";
+import { Button, Form, Image, Input, notification, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCartApi, pushProductIntoCartApi } from "../../../utils/apiClient";
+import { deleteProductInCart, getCartApi, pushProductIntoCartApi, updateProductInCart } from "../../../utils/apiClient";
 import BoxHead from "../../components/BoxHead";
 
 function Cart() {
     const [cart,setCart] = useState(null)
     const [loading,setLoading] = useState(true)
+    
     const dispatch = useDispatch()
     useEffect(()=>{
         const fetch=async()=>{
@@ -18,7 +19,7 @@ function Cart() {
         }
         fetch()
     },[dispatch,loading])
-    console.log(cart);
+    // console.log(cart);
 
     const getPriceNew = (price,discount)=>{
         return (price - price*discount/100).toFixed(0);
@@ -26,6 +27,16 @@ function Cart() {
     const getSumPrice = (price,quantity)=>{
         return price*quantity
     }
+    const handleDelete = async(id)=>{
+        const res = await deleteProductInCart(id)
+        if(res.code==200){
+            notification.success({
+                message:res.message
+            })
+            setLoading(!loading)
+        }
+    }
+
 
     // const handleQuantityChange = async(quantity, productId) => {
     //     const data = {
@@ -35,6 +46,28 @@ function Cart() {
     //     setLoading(!loading)
     // }
     // console.log(loading);
+    const updateCart = async(e,productId,oldQuantity)=>{
+        try {
+            const newQuantity = parseInt(e.target.value);
+            if(newQuantity!=oldQuantity){
+                const res = await updateProductInCart(productId,newQuantity)
+                if(res.code==200){
+                    notification.success({
+                        message:res.message
+                    })
+                    setLoading(!loading)
+                }
+            }
+            
+        } catch (error) {
+            notification.error({
+                message:"Lỗi thao tác"
+            })
+        }
+    }
+    
+
+    
 
     const columns = [
         
@@ -63,7 +96,9 @@ function Cart() {
                     type="number"
                     defaultValue={quantity}
                     min={1}
-                    disabled={true}
+                    // disabled={true}
+                    onBlur={(e) => updateCart(e, record._id,quantity)}
+               
                     // onChange={(e) => handleQuantityChange(e.target.value, record._id)}
                 />
             ),
@@ -83,7 +118,7 @@ function Cart() {
                
                     <Space size="middle">
                         <Button
-                            // onClick={() => handleDelete(record._id)}
+                            onClick={() => handleDelete(record._id)}
                             size="middle"
                             type="primary"
                             danger

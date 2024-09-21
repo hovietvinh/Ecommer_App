@@ -1,8 +1,9 @@
 import {  NavLink, useNavigate, useSearchParams } from "react-router-dom";
-import { Button, Form, Image, Input } from 'antd';
+import { Badge, Button, Form, Image, Input } from 'antd';
 import {SearchOutlined,ShoppingCartOutlined} from "@ant-design/icons";
 import Tree from "../Tree";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getCartApi } from "../../../utils/apiClient";
 function Header({setValue,value}) {
     const [form] = Form.useForm()
     const navigate = useNavigate()
@@ -11,6 +12,22 @@ function Header({setValue,value}) {
     useEffect(()=>{
         form.setFieldValue("keyword",keyword)
     },[keyword])
+
+    const [cart,setCart] = useState(null)
+    // const [loading,setLoading] = useState(true)
+    useEffect(()=>{
+        const fetch=async()=>{
+            const cartTmp = await getCartApi()
+            if(cartTmp.code==200){
+                setCart(cartTmp.cart)
+            }
+            
+        }
+        fetch()
+    },[navigate])
+    // console.log(cart);
+    
+
     const handleFinish = (e)=>{
         if(e.keyword){
             navigate(`/search?keyword=${e.keyword}`)
@@ -21,7 +38,7 @@ function Header({setValue,value}) {
     }
     return (
         <>
-            <div className="border-b border-gray-300 py-[10px]">
+            <div className="border-b border-gray-300 py-[20px]">
                 <div className="container max-w-[80%] mx-auto">
                     <div className="items-center flex justify-between">
                         
@@ -55,7 +72,21 @@ function Header({setValue,value}) {
                             <NavLink to="/products" onClick={()=>{setValue(null)}} className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>Sản phẩm</NavLink>
                             {/* <NavLink className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>Danh mục</NavLink> */}
                             
-                            <NavLink to="/cart" className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}><ShoppingCartOutlined style={{ fontSize: '24px' }} /> Giỏ hàng</NavLink>
+                            <NavLink to="/cart" className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>
+                                {cart &&(
+                                    <>
+                                        <Badge count={cart.total||""} offset={[10, 0]} size="small" className="mr-2">
+                                            <div className="font-normal text-blue-500 text-[16px] hover:text-blue-900">
+                                                <ShoppingCartOutlined style={{ fontSize: '24px' }} />
+                                                Giỏ hàng
+                                            </div>
+                                        </Badge>
+                                    </>
+                                )}
+                                
+                                
+                                    
+                            </NavLink>
                         </div>
                         
                     </div>

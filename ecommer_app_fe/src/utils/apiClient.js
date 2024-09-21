@@ -112,6 +112,32 @@ const getCartApi = async()=>{
         }
     }
 }
+const deleteProductInCart =async(id)=>{
+    try {
+        const URL_LOGIN =`/api/cart/delete/${id}`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+const updateProductInCart =async(productId,quantity)=>{
+    try {
+        const URL_LOGIN =`/api/cart/update/${productId}/${quantity}`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
 
 export {
     getProductCategoryApi,
@@ -121,5 +147,7 @@ export {
     getProductsByKeywordApi,
     createCardIdApi,
     pushProductIntoCartApi,
-    getCartApi
+    getCartApi,
+    deleteProductInCart,
+    updateProductInCart
 }

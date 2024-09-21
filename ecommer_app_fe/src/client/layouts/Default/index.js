@@ -32,7 +32,7 @@ function Default() {
     useEffect(()=>{
         const fetch = async()=>{
             
-            console.log(cardId);
+            // console.log(cardId);
             if(!cardId){
                 console.log("vaoday");
                 const res =await createCardIdApi()

@@ -17,6 +17,51 @@ module.exports.create = async(req,res)=>{
         })
     }
 }
+
+// [GET] api/card/update/:productId/:quantity
+module.exports.update = async(req,res)=>{
+    try {
+   
+        const {productId,quantity} = req.params
+        const cartId = req.cookies.cardId
+        await Cart.updateOne({
+            _id:cartId,
+            "products.product_id":productId
+        },{
+            'products.$.quantity':parseInt(quantity)
+        })
+        res.json({
+            code:200,
+            message:"Cập nhật thành cong"
+        })
+    } catch (error) {
+        res.json({
+            code:400, 
+            message:error.message
+        })
+    }
+}
+// [GET] api/card/delete/:id
+module.exports.delete = async(req,res)=>{
+    try {
+        const {id} = req.params
+        const cartId = req.cookies.cardId
+        await Cart.updateOne({_id:cartId},{
+            "$pull":{"products":{"product_id":id}}
+        })
+        res.json({
+            code:200,
+            message:"Xóa thành công"
+        })
+        
+
+    } catch (error) {
+        res.json({
+            code:400, 
+            message:error.message
+        })
+    }
+}
 // [GET] api/card
 module.exports.index = async(req,res)=>{
     try {
@@ -26,9 +71,11 @@ module.exports.index = async(req,res)=>{
         let cartObject = cart.toObject()
 
         let productsObject =[]
+        let total =0
 
         if(cart.products.length>0){
             for(const item of cart.products){
+                total += item.quantity
                 const productId = item.product_id
                 const productInfoModel = await Product.findOne({
                     deleted:false,
@@ -41,6 +88,7 @@ module.exports.index = async(req,res)=>{
             }
         }
         cartObject.productsObject=productsObject
+        cartObject.total = total
 
         res.json({
             code:200,
