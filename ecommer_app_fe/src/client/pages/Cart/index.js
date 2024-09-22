@@ -1,13 +1,14 @@
 import { Button, Form, Image, Input, notification, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteProductInCart, getCartApi, pushProductIntoCartApi, updateProductInCart } from "../../../utils/apiClient";
+import { checkoutApi, deleteProductInCart, getCartApi, pushProductIntoCartApi, updateProductInCart } from "../../../utils/apiClient";
 import BoxHead from "../../components/BoxHead";
+import {Link, NavLink, useNavigate} from "react-router-dom"
 
 function Cart() {
     const [cart,setCart] = useState(null)
     const [loading,setLoading] = useState(true)
-    
+    const navigate= useNavigate()
     const dispatch = useDispatch()
     useEffect(()=>{
         const fetch=async()=>{
@@ -65,6 +66,8 @@ function Cart() {
             })
         }
     }
+
+    console.log(cart);
     
 
     
@@ -80,7 +83,7 @@ function Cart() {
         {
             title: 'Tên',
             dataIndex: 'title',
-            render:(title)=> <span className="text-blue-400">{title}</span>
+            render:(title,record)=> <NavLink to={`/products/detail/${record.slug}`} className="text-blue-400">{title}</NavLink>
             
         },
         {
@@ -141,6 +144,18 @@ function Cart() {
         return ans
     }
 
+    const handleClick = async()=>{
+       const res = await checkoutApi()
+       if(res.code==200){
+            navigate("/checkout")
+       }
+       else{
+        notification.error({
+            message:res.message
+        })
+       }
+    }
+
 
 
     return (
@@ -170,11 +185,13 @@ function Cart() {
                 {(cart && cart.productsObject && cart.productsObject.length > 0) &&(
                         <div className="text-right mt-2">
                             <h1 className="text-[25px] font-medium ">Tổng đơn hàng:{getSumCart(cart.productsObject)}$</h1>
-                            <Button className="bg-green-600 p-4 font-light text-[20px] text-white">Thanh toán</Button>
+                            
+                                <Button onClick={handleClick}  className="bg-green-600 p-4 font-light text-[20px] text-white">Thanh toán</Button>
+
                         </div>
                         
                         
-                    )}
+                )}
 
                 
 

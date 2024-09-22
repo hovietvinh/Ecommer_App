@@ -3,6 +3,7 @@ const homeRoutes = require("./home.route")
 const productCategoryRoutes = require("./product-category.route")
 const searchRoutes = require("./search.route")
 const carthRoutes = require("./card.route")
+const orderRoutes = require("./order.route")
 const cartMiddleware = require("../../middlewars/cart.middleware")
 const Cart = require("../../models/cart.model")
 
@@ -20,6 +21,7 @@ module.exports = (app)=>{
     app.use("/api/products-category",productCategoryRoutes)
     app.use("/api/search",searchRoutes)
     app.use("/api/cart",carthRoutes)
+    app.use("/api/checkout",orderRoutes)
 
     // app.get("/api/dele",async(req,res)=>{
     //     const result = await Cart.deleteMany({});

@@ -139,6 +139,52 @@ const updateProductInCart =async(productId,quantity)=>{
     }
 }
 
+const checkoutApi = async()=>{
+    try {
+        const URL_LOGIN =`/api/checkout`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+
+const checkoutOrderApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/checkout/order`
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+
+const orderSuccessApi = async(orderId)=>{
+    try {
+        const URL_LOGIN =`/api/checkout/success/${orderId}`
+        const response = await axios.get(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+
 export {
     getProductCategoryApi,
     getProductsApi,
@@ -149,5 +195,8 @@ export {
     pushProductIntoCartApi,
     getCartApi,
     deleteProductInCart,
-    updateProductInCart
+    updateProductInCart,
+    checkoutApi,
+    checkoutOrderApi,
+    orderSuccessApi
 }

@@ -85,7 +85,12 @@ function DetailProduct() {
                                 </div>
 
                                 <div className="mb-2 text-black text-[16px]">
-                                    Còn lại <span className="bg-green-500 text-white font-medium inline-block py-1 px-2 rounded-md">{stateProducts.products.stock || 0} </span> sản phẩm
+                                    {stateProducts.products.stock>0?(
+                                        <>Còn lại <span className="bg-green-500 text-white font-medium inline-block py-1 px-2 rounded-md">{stateProducts.products.stock || 0} </span> sản phẩm</>
+
+                                    ):(
+                                        <span className="text-red-500">Đã hết hàng</span>
+                                    )}
                                 </div>
 
                                 <Form
@@ -96,7 +101,7 @@ function DetailProduct() {
                                         <Input
                                         type="number"
                                         className=""
-                                
+                                        disabled={stateProducts.products.stock>0?false:true}
                                         min={1}
                                         max={stateProducts.products.stock}
                                         />

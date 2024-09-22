@@ -26,6 +26,8 @@ import Error from "../admin/pages/403";
 import Home from "../client/pages/Home";
 import Search from "../client/pages/Search";
 import Cart from "../client/pages/Cart";
+import Checkout from "../client/pages/Checkout";
+import CheckoutSuccess from "../client/pages/CheckoutSuccees";
 
 export const routes = [
     {
@@ -55,6 +57,14 @@ export const routes = [
             {
                 path:"/cart",
                 element:<Cart/>
+            },
+            {
+                path:"/checkout",
+                element:<Checkout/>
+            },
+            {
+                path:'/checkout/success/:orderId',
+                element:<CheckoutSuccess/>
             }
         ],
     },
