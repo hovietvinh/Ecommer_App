@@ -2,9 +2,9 @@ import { Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getProductCategoryAction } from "../../../redux/client/actions/ProductCategoryAction";
-import { createCardIdApi } from "../../../utils/apiClient";
+import { checkUserApi, createCardIdApi } from "../../../utils/apiClient";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 
@@ -29,12 +29,36 @@ function Default() {
         document.cookie = `${name}=${value || ""}${expires}; path=/;`;
     };
     const [cardId ,setCardId] = useState(getCookie("cardId"))
+    const location = useLocation()
+
+    const validateUserToken = async () => {
+        const userToken = localStorage.getItem("user_token");
+        if (userToken) {
+            try {
+                const res = await checkUserApi(userToken);
+                console.log(res);
+                if (res.code !== 200) {
+                    localStorage.removeItem("user_token");
+                }
+            
+            } catch (error) {
+                localStorage.removeItem("user_token");
+                
+            }
+        }
+    };
+
+    useEffect(() => {
+        validateUserToken();  // Validate token on initial load and whenever the route changes
+    }, [location,navigate]);
+    
+
     useEffect(()=>{
         const fetch = async()=>{
             
             // console.log(cardId);
             if(!cardId){
-                console.log("vaoday");
+                // console.log("vaoday");
                 const res =await createCardIdApi()
                 console.log(res);
                 if(res.code==200){
@@ -62,6 +86,9 @@ function Default() {
         }
     }, [dispatch,loading],cardId);
     // console.log(getCookie("cardId"));
+
+
+    
     
 
    

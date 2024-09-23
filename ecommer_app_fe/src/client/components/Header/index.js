@@ -1,5 +1,5 @@
 import {  NavLink, useNavigate, useSearchParams } from "react-router-dom";
-import { Badge, Button, Form, Image, Input } from 'antd';
+import { Badge, Button, Form, Image, Input, notification } from 'antd';
 import {SearchOutlined,ShoppingCartOutlined} from "@ant-design/icons";
 import Tree from "../Tree";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ function Header({setValue,value}) {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const keyword = searchParams.get("keyword")
+   const [userToken,setUserToken] = useState()
     useEffect(()=>{
         form.setFieldValue("keyword",keyword)
     },[keyword])
@@ -26,10 +27,26 @@ function Header({setValue,value}) {
         fetch()
     },[navigate])
     // console.log(cart);
+
+    useEffect(()=>{
+        setUserToken(localStorage.getItem("user_token"))
+    },[navigate])
+
+
+    const hanldelogout = ()=>{
+        localStorage.removeItem("user_token")
+        setUserToken("")
+        notification.success({
+            message:"Đã đăng xuất"
+        })
+        navigate("/")
+    }
+
     
 
     const handleFinish = (e)=>{
         if(e.keyword){
+            
             navigate(`/search?keyword=${e.keyword}`)
         }
         else{
@@ -75,18 +92,31 @@ function Header({setValue,value}) {
                             <NavLink to="/cart" className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>
                                 {cart &&(
                                     <>
-                                        <Badge count={cart.total||""} offset={[10, 0]} size="small" className="mr-2">
+                                        <Badge count={cart.total||""} offset={[10, 0]} size="small" className="">
                                             <div className="font-normal text-blue-500 text-[16px] hover:text-blue-900">
                                                 <ShoppingCartOutlined style={{ fontSize: '24px' }} />
                                                 Giỏ hàng
                                             </div>
                                         </Badge>
                                     </>
-                                )}
-                                
-                                
-                                    
+                                )}        
                             </NavLink>
+                            {!userToken && (
+                                <>
+                                    <NavLink to="/user/login" className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>Đăng nhập</NavLink>
+                                    <NavLink to="/user/register" className={"font-normal text-blue-500 text-[16px] hover:text-blue-900"}>Đăng ký</NavLink>
+                                </>
+                                
+                            )}
+
+                            {userToken && (
+                                <>
+                                    <Button onClick={hanldelogout} type="text" className={"font-normal text-blue-500 text-[16px] bg-[#F5F5F5] hover:text-blue-900"}>Đăng xuất</Button>
+                                </>
+                                
+                            )}
+
+                                            
                         </div>
                         
                     </div>

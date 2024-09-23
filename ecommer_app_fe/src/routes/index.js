@@ -28,6 +28,8 @@ import Search from "../client/pages/Search";
 import Cart from "../client/pages/Cart";
 import Checkout from "../client/pages/Checkout";
 import CheckoutSuccess from "../client/pages/CheckoutSuccees";
+import Register from "../client/pages/Register";
+import LoginUser from "../client/pages/Login";
 
 export const routes = [
     {
@@ -65,6 +67,14 @@ export const routes = [
             {
                 path:'/checkout/success/:orderId',
                 element:<CheckoutSuccess/>
+            },
+            {
+                path:"/user/register",
+                element:<Register/>
+            },
+            {
+                path:"/user/login",
+                element:<LoginUser/>
             }
         ],
     },

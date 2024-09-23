@@ -185,6 +185,58 @@ const orderSuccessApi = async(orderId)=>{
     }
 }
 
+const registerUserApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/user/register`
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+
+
+const loginUserApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/user/login`
+        const response = await axios.post(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+
+
+const checkUserApi = async(data)=>{
+    try {
+        const URL_LOGIN =`/api/user/checkToken/${data}`
+        const response = await axios.post(URL_LOGIN)
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+            
+        }
+    }
+}
+
 export {
     getProductCategoryApi,
     getProductsApi,
@@ -198,5 +250,8 @@ export {
     updateProductInCart,
     checkoutApi,
     checkoutOrderApi,
-    orderSuccessApi
+    orderSuccessApi,
+    registerUserApi,
+    loginUserApi,
+    checkUserApi
 }
