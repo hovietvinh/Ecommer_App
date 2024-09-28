@@ -14,9 +14,9 @@ router.use((req, res, next) => {
 
 
 router.post("/login",validate.auth,controller.login)
-router.post("/logout",validate.auth,controller.login)
+// router.post("/logout",validate.auth,controller.logout)
 router.post("/checkAuth",controller.checkAuth)
-
+// router.post()
 
 
 

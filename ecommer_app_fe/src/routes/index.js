@@ -30,6 +30,8 @@ import Checkout from "../client/pages/Checkout";
 import CheckoutSuccess from "../client/pages/CheckoutSuccees";
 import Register from "../client/pages/Register";
 import LoginUser from "../client/pages/Login";
+import DetailRole from "../admin/pages/DetailRole";
+import MyAccount from "../admin/pages/MyAccount";
 
 export const routes = [
     {
@@ -88,7 +90,7 @@ export const routes = [
             },
             {
                 path: "dashboard",
-                element: <RoleBasedRoute requiredPermissions={[]}><Dashboard /></RoleBasedRoute>,
+                element:<Dashboard />
             },
             {
                 path: "products",
@@ -149,6 +151,14 @@ export const routes = [
             {
                 path: "accounts/create",
                 element: <RoleBasedRoute ><CreateAccount /></RoleBasedRoute>,
+            },
+            {
+                path:"roles/detail/:id",
+                element:<RoleBasedRoute requiredPermissions={["roles_view"]}><DetailRole/></RoleBasedRoute>,
+            },
+            {
+                path:"my-account",
+                element:<RoleBasedRoute><MyAccount/></RoleBasedRoute>,
             },
             {
                 path: "403",

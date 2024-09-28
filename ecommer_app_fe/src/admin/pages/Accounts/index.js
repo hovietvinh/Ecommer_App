@@ -15,6 +15,7 @@ function Accounts() {
     useEffect(()=>{
         dispatch(getAccountsAction())
     },[dispatch])
+    console.log(stateAccounts.accounts);
 
     const columns = [
         {
@@ -31,7 +32,7 @@ function Accounts() {
         {
             title:"Phân Quyền",
             dataIndex:"role",
-            render:(_,record)=> <span>{record.role.title}</span>
+            render:(_,record)=> <span>{record.role?record.role.title:""}</span>
         },
         {
             title: 'Email',
@@ -84,8 +85,8 @@ function Accounts() {
                 } mt-[20px] mr-[20px]`}
             >
                 <BoxHead text="Danh sách tài khoản"/>
-                
-                <Card
+                {stateAccounts.accounts.length>0  && (
+                    <Card
                     title={
                         <Row justify="space-between" align="middle">
                             <Col>
@@ -124,7 +125,10 @@ function Accounts() {
                         bordered
                     />
 
-                </Card>
+                    </Card>
+                    // <>{stateAccounts.accounts[0]._id}</>
+                )}
+                
         </div>
         
         </>

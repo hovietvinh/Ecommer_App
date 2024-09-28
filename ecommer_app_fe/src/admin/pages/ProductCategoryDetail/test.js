@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button, Card, Descriptions, Tag } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-const Test = ({data}) => {
+const Test = ({id,data}) => {
   
 
   const sanitizeHTML = (htmlString) => {
     // You can use libraries like DOMPurify to sanitize HTML
     return htmlString; // or DOMPurify.sanitize(htmlString);
   };
-
+  const navigate = useNavigate()
   // Define a color for status
   const getStatusTag = (status) => {
     if (status === 'active') {
@@ -16,6 +17,11 @@ const Test = ({data}) => {
     }
     return <Tag color="red">Inactive</Tag>;
   };
+  const handleClick = ()=>{
+    // console.log(id);
+    navigate(`/admin/products-category/edit/${id}`)
+    
+  }
   // console.log(data);
   return (
 
@@ -35,7 +41,7 @@ const Test = ({data}) => {
         <Descriptions.Item label="Status">{getStatusTag(data.status)}</Descriptions.Item>
       </Descriptions>
 
-      <Button type='primary'>Chỉnh sửa</Button>
+      <Button onClick={handleClick} type='primary'>Chỉnh sửa</Button>
     </Card>
   );
 };

@@ -8,11 +8,12 @@ import { checkAuthAction } from "../../../redux/actions/AuthAction";
 
 function Default() {
     const [collapsed, setCollapsed] = useState(false);
-    const [auth, setAuth] = useState(localStorage.getItem("access_token"));
+    // const [auth, setAuth] = useState(localStorage.getItem("access_token"));
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const stateAuth = useSelector(state => state.AuthReducer);
-    
+    const [accessToken,setAccessToken] = useState(localStorage.getItem("access_token"));
+
     const toggleCollapsed = () => {
         setCollapsed(!collapsed);
     };
@@ -23,34 +24,44 @@ function Default() {
 
     // Gọi lại API khi trang reload để kiểm tra quyền và cập nhật thông tin auth
     useEffect(() => {
-        if (auth) {
-            dispatch(checkAuthAction()); // Gọi API kiểm tra lại auth khi reload
-        } else {
-            navigate('/admin/auth/login'); // Nếu không có token, điều hướng về trang đăng nhập
+        const access_token = localStorage.getItem("access_token");
+        if(!access_token){
+            navigate("/admin/auth/login")
         }
-    }, [auth, dispatch, navigate]);
+        else{
+            if(stateAuth.access_token!=accessToken){
+            navigate("/admin/auth/login")
 
-    useEffect(() => {
-        const handleStorageChange = () => {
-            const newToken = localStorage.getItem("access_token");
-            if (newToken !== auth) {
-                setAuth(newToken);
-                // Có thể reload hoặc gọi API khác để cập nhật state
-                window.location.reload(); // Reload lại trang để cập nhật auth
             }
-        };
+        }
+    }, [ dispatch, navigate,accessToken]);
 
-        window.addEventListener("storage", handleStorageChange);
+    // useEffect(() => {
+    //     const handleStorageChange = () => {
+    //         const newToken = localStorage.getItem("access_token");
+    //         if (newToken !== auth) {
+    //             setAuth(newToken);
+    //             // Có thể reload hoặc gọi API khác để cập nhật state
+    //             window.location.reload(); // Reload lại trang để cập nhật auth
+    //         }
+    //     };
 
-        // Clean up sự kiện khi unmount component
-        return () => {
-            window.removeEventListener("storage", handleStorageChange);
-        };
-    }, [auth]);
+    //     window.addEventListener("storage", handleStorageChange);
+
+    //     // Clean up sự kiện khi unmount component
+    //     return () => {
+    //         window.removeEventListener("storage", handleStorageChange);
+    //     };
+    // }, [auth]);
+    // console.log(stateAuth);
+    const handle = ()=>{
+        localStorage.removeItem("access_token")
+        navigate('/admin/auth/login')
+    }
 
     return (
         <>
-            {stateAuth.role && stateAuth.role.permissions && stateAuth.role.permissions.length > 0 ? (
+            {stateAuth.access_token? (
                 <>
                     <Header />
                     <div className="body">
@@ -64,7 +75,7 @@ function Default() {
                     title="403"
                     subTitle="Xin lỗi, bạn không có quyền truy cập vào trang này."
                     extra={
-                        <Button type="primary" onClick={() => navigate('/admin/auth/login')}>
+                        <Button type="primary" onClick={handle}>
                             Quay lại trang đăng nhập
                         </Button>
                     }

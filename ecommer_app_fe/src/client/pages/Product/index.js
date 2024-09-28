@@ -1,11 +1,11 @@
 import BoxHead from "../../components/BoxHead";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Badge, Empty } from "antd";
+import { Badge, Empty,Typography } from "antd";
 import { NavLink, useParams } from "react-router-dom";
 import { getProductsAction, getProductsBySlugCategoryAction } from "../../../redux/client/actions/ProductAction";
 
-
+const { Text } = Typography;
 function Product() {
     
     const getPriceNew = (price,discount)=>{
@@ -47,9 +47,28 @@ function Product() {
                         
                             <NavLink to={`/products/detail/${product.slug}`} key={product._id}   className="rounded-lg overflow-hidden border border-gray-300">
                             <Badge.Ribbon text="Nổi bật" color="red" className={product.featured === "1" ? "m-1  rounded-md" : "hidden"} >
-                            <div className="w-full aspect-[4/3] border border-gray-300">
-                               <img className="w-full h-full object-cover" src={product.thumbnail?product.thumbnail:"https://lh4.googleusercontent.com/proxy/IEU20xZDxGIL6f-PIiD-uSnnbAflCtBb2ZSY3tXouFuAYAi-Ehi0ijol5w075iG5KkAICJI1dSpzy6LKGrpd4mxX6A0bJNvWBFpDajmZR97wXUfbXA"}></img>
-                           </div>
+                            <div className="w-full aspect-[4/3] border border-gray-300 relative">
+                                {product.stock>0 ?(
+                                    <>
+                                        <img className="w-full h-full object-cover" src={product.thumbnail?product.thumbnail:"https://lh4.googleusercontent.com/proxy/IEU20xZDxGIL6f-PIiD-uSnnbAflCtBb2ZSY3tXouFuAYAi-Ehi0ijol5w075iG5KkAICJI1dSpzy6LKGrpd4mxX6A0bJNvWBFpDajmZR97wXUfbXA"}></img>
+                                    </>
+                                ):(
+                                    <>
+                                        <img
+                                            className="w-full h-full object-cover opacity-75"
+                                            src={product.thumbnail ? product.thumbnail : "https://lh4.googleusercontent.com/proxy/IEU20xZDxGIL6f-PIiD-uSnnbAflCtBb2ZSY3tXouFuAYAi-Ehi0ijol5w075iG5KkAICJI1dSpzy6LKGrpd4mxX6A0bJNvWBFpDajmZR97wXUfbXA"}
+                                            alt="Product Thumbnail"
+                                            style={{ filter: 'blur(4px)' }}
+                                        />
+                                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                                            <Text className="text-white text-xl font-medium shadow-lg transform scale-110">
+                                                Hết hàng
+                                            </Text>
+                                        </div>
+                                    </>
+                                )}
+                                
+                            </div>
                            <div className="p-[15px]">
                                <h3 className="text-[20px] font-semibold">{product.title}</h3>
                                <div className="text-[18px] text-green-500 font-semibold">{getPriceNew(product.price,product.discountPercentage)}$</div>

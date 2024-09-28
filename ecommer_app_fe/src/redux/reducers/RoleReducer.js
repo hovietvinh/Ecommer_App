@@ -26,6 +26,11 @@ const RoleReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+        case "DELETE_ROLE":
+            return {
+                ...state,
+                roles: state.roles.filter((item)=>item._id!=action.payload)
+            }
         
         default:
             return state;

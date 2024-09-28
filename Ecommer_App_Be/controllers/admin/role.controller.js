@@ -94,3 +94,79 @@ module.exports.permissions =async(req,res)=>{
         })
     }
 }
+
+
+//[GET] api/admin/roles/delete/:id
+module.exports.delete = async(req,res)=>{
+    try{
+        const {id} = req.params
+        let find= {
+            deleted:false,
+            _id:id
+        }
+
+
+     
+        // const roles = await Role.findOne(find)
+
+        await  Role.updateOne({
+            _id:id,
+            deleted:false
+        },{
+            deleted:true,
+            deletedAt:new Date()
+        })
+
+        res.json({
+            code:200,
+            message:"Xóa nhóm quyền thành công"
+        })
+    
+        // console.log(products);
+        
+    }catch(e){
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+
+
+}
+
+//[PATCH] api/admin/roles/edit/:id
+module.exports.edit = async(req,res)=>{
+    try{
+        const {id} = req.params
+        const data = req.body
+        let find= {
+            deleted:false,
+            _id:id
+        }
+        console.log(id,data);
+
+
+     
+        // const roles = await Role.findOne(find)
+
+        await  Role.updateOne({
+            _id:id,
+            deleted:false
+        },data)
+
+        res.json({
+            code:200,
+            message:"Cập nhật thành công"
+        })
+    
+        // console.log(products);
+        
+    }catch(e){
+        res.json({
+            code:400,
+            message:"Error in BE"
+        })
+    }
+
+
+}

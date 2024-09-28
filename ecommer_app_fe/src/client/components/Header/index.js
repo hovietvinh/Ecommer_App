@@ -111,7 +111,7 @@ function Header({setValue,value}) {
 
                             {userToken && (
                                 <>
-                                    <Button onClick={hanldelogout} type="text" className={"font-normal text-blue-500 text-[16px] bg-[#F5F5F5] hover:text-blue-900"}>Đăng xuất</Button>
+                                    <button onClick={hanldelogout} type="text" className={"font-normal text-blue-500 text-[16px] bg-[#F5F5F5] hover:text-blue-900 p-0 m-0"}>Đăng xuất</button>
                                 </>
                                 
                             )}

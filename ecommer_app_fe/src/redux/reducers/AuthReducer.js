@@ -15,10 +15,12 @@ const AuthReducer = (state = initialState, action) => {
                 role:action.data.role
             }
         case "CHECK_AUTH":
+            // console.log(action);
             return {
                 ...state,
                 account:action.data,
-                role:action.data.role
+                role:action.data.role,
+                access_token:action.access_token
             }
         default:
             return state;

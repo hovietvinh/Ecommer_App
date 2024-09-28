@@ -1,4 +1,4 @@
-import { createRoleApi, getRoleDetailApi, getRolesApi, updatePermissionsApi } from "../../utils/api";
+import { createRoleApi, deleteRoleApi, editRoleApi, getRoleDetailApi, getRolesApi, updatePermissionsApi } from "../../utils/api";
 import {notification} from "antd"
 
 export const getRolesAction = ()=>{
@@ -112,6 +112,70 @@ export const updatePermissionsAction = (data)=>{
                 message:"Lấy dữ liệu thất bại",
                 description: error.message
             })
+        }
+    }
+}
+
+export const deleteRoleAction = (id)=>{
+    return async(dispatch)=>{
+        try {
+            const data = await deleteRoleApi(id)
+            console.log(data);
+            if(data.code==200){
+                dispatch({
+                    type: "DELETE_ROLE",
+                    payload:id
+                });
+                notification.success({
+                    message:data.message
+                   
+                })
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại code: " ,
+                    description: data.message
+                })
+            }
+            
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
+            })
+        }
+    }
+}
+
+export const editRoleAction = (id,dataBody)=>{
+    return async(dispatch)=>{
+        try {
+            const data = await editRoleApi(id,dataBody)
+            if(data.code==200){
+                dispatch({
+                    type: "EDIT_ROLE",
+                });
+                notification.success({
+                    message:data.message
+                   
+                })
+                return true
+            }
+            else{
+                notification.error({
+                    message:"Lấy dữ liệu thất bại code: " ,
+                    description: data.message
+                })
+                return false
+            }
+            
+            
+        } catch (error) {
+            notification.error({
+                message:"Lấy dữ liệu thất bại",
+                description: error.message
+            })
+            return false
         }
     }
 }

@@ -2,7 +2,7 @@ import { useNavigate, useOutletContext,NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import BoxHead from "../../components/BoxHead";
 import {Row,Col,Button,Card, Empty,Table,Space} from "antd"
-import { getRolesAction } from "../../../redux/actions/RoleAction";
+import { getRolesAction,deleteRoleAction } from "../../../redux/actions/RoleAction";
 import { useDispatch, useSelector } from "react-redux";
 
 function Roles() {
@@ -19,6 +19,12 @@ function Roles() {
     const sanitizeHTML = (htmlString) => {
         return htmlString; // You can use a sanitizer like DOMPurify if necessary
       };
+
+    const handleDelete = (id)=>{
+        dispatch(deleteRoleAction(id))
+        
+        
+    }
     const columns = [
         {
             title: 'Nhóm quyền',
@@ -48,10 +54,11 @@ function Roles() {
                         size="middle"
                         type="primary"
                         danger
+                        onClick={()=>{handleDelete(record._id)}}
                     >
                         Xóa
                     </Button>
-                    <NavLink  className="bg-gray-400 p-2 px-3 text-white rounded-md">Chi tiết</NavLink>
+                    <NavLink  to={`/admin/roles/detail/${record._id}`} className="bg-gray-400 p-2 px-3 text-white rounded-md">Chi tiết</NavLink>
 
                     
                 </Space>

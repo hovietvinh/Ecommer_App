@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import BoxHead from "../../components/BoxHead";
 import {Form,Input,Button } from "antd"
 import { useState,useEffect } from "react";
 import RichTextEditor from "../../components/RichTextEditor";
-import { getRoleDetailAction } from "../../../redux/actions/RoleAction";
+import { editRoleAction, getRoleDetailAction } from "../../../redux/actions/RoleAction";
 
 function EditRole() {
     const {collapsed} = useOutletContext()
@@ -12,6 +12,7 @@ function EditRole() {
     const dispatch = useDispatch();
     const [form] = Form.useForm()
     const stateRole = useSelector(state=>state.RoleReducer);
+    const navigate = useNavigate()
     const [editorContent, setEditorContent] = useState('');
     const handleEditorChange = (content, editor) => {
         setEditorContent(content);
@@ -32,8 +33,12 @@ function EditRole() {
 
     },[stateRole.roles,form])
 
-    const handleFinish = (e)=>{
-        console.log(e);
+    const handleFinish = async(e)=>{
+        e.description = editorContent
+        const res = await dispatch(editRoleAction(id,e))
+        if(res){
+            navigate("/admin/roles")
+        }
     }
     return (
         <>

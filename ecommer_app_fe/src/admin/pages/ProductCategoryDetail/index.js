@@ -28,7 +28,7 @@ function ProductCategoryDetail() {
                         : "ml-[230px] w-[calc(100%-230px)]"
                     } mt-[20px] mr-[20px]`}
                 >
-                    <Test data={data.productsCategory}/>
+                    <Test id={id} data={data.productsCategory}/>
 
 
                 </div>

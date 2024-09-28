@@ -35,7 +35,7 @@ function EditProductCategory() {
         }
 
     },[stateProductCategory.productsCategory,form])
-    // console.log(stateProductCategory);
+    console.log(stateProductCategory.productsCategory);
     // console.log(stateProductCategory);
     
     const finish = async (values) => {
@@ -43,7 +43,7 @@ function EditProductCategory() {
         // console.log(values);
         // console.log(formData);
         
-        
+        values.description = editorContent
         dispatch(updateProductCategoryAction(id,values))
             .then(()=>{
                 dispatch(getProductCategoryAction())

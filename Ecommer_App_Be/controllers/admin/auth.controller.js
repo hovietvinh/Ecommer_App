@@ -73,7 +73,8 @@ module.exports.checkAuth = async(req,res)=>{
           
             return res.json({
                 code:200,
-                data:decoded
+                data:decoded,
+                access_token:token
             })
         } catch (error) {
             return res.json({
@@ -90,3 +91,4 @@ module.exports.checkAuth = async(req,res)=>{
         })
     }
 }
+

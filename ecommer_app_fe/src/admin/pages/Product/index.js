@@ -7,6 +7,7 @@ import { NavLink, useLocation, useSearchParams, useOutletContext } from "react-r
 import FilterStatus from "../../components/FilterStatus";
 import Search from "../../components/Search";
 import ChangeMulti from "../../components/ChangeMulti";
+import moment from "moment"
 
 function Product() {
     const location = useLocation();
@@ -150,6 +151,17 @@ function Product() {
                         {status === "active" ? "Hoạt động" : "Dừng hoạt động"}
                     </Tag>
                 </Button>
+            )
+        },
+        {
+            title: 'Người tạo/Ngày tạo',
+            dataIndex: 'createdBy',
+            render:(_,record)=>(
+                <>
+                    <span className="block">{record.createdBy.account?record.createdBy.account.fullName:""}</span>
+                    <span>{record.createdBy ? moment(record.createdAt).format('DD/MM/YYYY') : ""}</span>
+                </>
+                
             )
         },
         {

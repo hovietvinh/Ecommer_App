@@ -408,6 +408,40 @@ const returnDeletedProductCategoryApi = async(id)=>{
     }
 }
 
+const deleteRoleApi = async(id)=>{
+    try {
+        const URL_LOGIN =`/api/admin/roles/delete/${id}`
+        // console.log(URL_LOGIN);
+        const response = await axios.delete(URL_LOGIN)
+        // console.log(response);
+        return response
+        
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
+
+const editRoleApi  = async(id,data)=>{
+    try {
+        const URL_LOGIN =`/api/admin/roles/edit/${id}`
+        console.log(data);
+        const response = await axios.patch(URL_LOGIN,data,{
+            headers:{
+                "Content-Type":'application/json'
+            }
+        })
+        // console.log(response);
+        return response
+    } catch (error) {
+        return {
+            code:400,
+            message:"Error in axios!"
+        }
+    }
+}
 
 
 export {
@@ -438,5 +472,7 @@ export {
     loginAccountsApi,
     checkAuthApi,
     returnDeletedApi,
-    returnDeletedProductCategoryApi
+    returnDeletedProductCategoryApi,
+    deleteRoleApi,
+    editRoleApi
 }

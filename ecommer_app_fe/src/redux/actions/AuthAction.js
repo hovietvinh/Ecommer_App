@@ -47,6 +47,7 @@ export const checkAuthAction = ()=>{
                 dispatch({
                     type: "CHECK_AUTH",
                     data:response.data,
+                    access_token:response.access_token
                 });
                 return response
             }
