@@ -219,7 +219,6 @@ function Product() {
                 <Card
                     title="Bộ lọc và tìm kiếm"
                     headStyle={{
-                        backgroundColor: '#edf2f7',
                         color: '#2d3748',
                         padding: '16px',
                         borderRadius: '0.375rem 0.375rem 0 0',
@@ -228,7 +227,7 @@ function Product() {
                         fontWeight: '300'
                     }}
                     bordered={true}
-                    size="middle" className="mr-8 mb-6 rounded-md mt-4"
+                    size="middle" className="mr-8 mb-6 rounded-md mt-4 shadow-md"
                     
                 >
                     <div className="flex items-center justify-between">
@@ -241,9 +240,8 @@ function Product() {
                     <Card
                         title="Danh sách"
                         bordered={false}
-                        size="middle" className="mr-8 mb-6"
+                        size="middle" className="mr-8 mb-6 shadow-md"
                         headStyle={{
-                            backgroundColor: '#edf2f7',
                             color: '#2d3748',
                             padding: '16px',
                             borderRadius: '0.375rem 0.375rem 0 0',
@@ -251,6 +249,7 @@ function Product() {
                             boxSizing: 'border-box',
                             fontWeight: '300'
                         }}
+                        
                     >
                         <Space align="center" className="pr-9" style={{ width: '100%', justifyContent: 'space-between' }}>
                             <ChangeMulti handleChangePosition={handleChangePosition} selectedRowKeys={selectedRowKeys} setSelectedRowKeys={setSelectedRowKeys} />

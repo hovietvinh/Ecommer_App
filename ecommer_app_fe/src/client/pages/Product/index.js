@@ -1,12 +1,14 @@
 import BoxHead from "../../components/BoxHead";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Badge, Empty,Typography } from "antd";
 import { NavLink, useParams } from "react-router-dom";
 import { getProductsAction, getProductsBySlugCategoryAction } from "../../../redux/client/actions/ProductAction";
 
 const { Text } = Typography;
 function Product() {
+
+    const [show,setShow] = useState(false)
     
     const getPriceNew = (price,discount)=>{
         return (price - price*discount/100).toFixed(0);
@@ -27,6 +29,7 @@ function Product() {
             else{
                 dispatch(getProductsAction())
             }
+            setShow(true)
              
         }
         fetchApi()
@@ -35,7 +38,9 @@ function Product() {
 
     return (
         <>
-            <div className="container max-w-[80%] mx-auto my-5">
+            {show && (
+                <>
+                    <div className="container max-w-[80%] mx-auto my-5">
                 <div className="grid grid-cols-1 gap-4">
                     <BoxHead text={
                         "Danh sách sản phẩm"
@@ -45,7 +50,7 @@ function Product() {
                     {stateProducts.products.length>0?(
                         stateProducts.products.map(product=>(
                         
-                            <NavLink to={`/products/detail/${product.slug}`} key={product._id}   className="rounded-lg overflow-hidden border border-gray-300">
+                            <NavLink to={`/products/detail/${product.slug}`} key={product._id}   className="rounded-lg overflow-hidden border  border-white bg-white shadow-md hover:shadow-lg">
                             <Badge.Ribbon text="Nổi bật" color="red" className={product.featured === "1" ? "m-1  rounded-md" : "hidden"} >
                             <div className="w-full aspect-[4/3] border border-gray-300 relative">
                                 {product.stock>0 ?(
@@ -90,6 +95,9 @@ function Product() {
 
                 
             </div>
+                </>
+            )}
+            
         </>
     );
 }

@@ -15,7 +15,7 @@ function Accounts() {
     useEffect(()=>{
         dispatch(getAccountsAction())
     },[dispatch])
-    console.log(stateAccounts.accounts);
+    // console.log(stateAccounts.accounts);
 
     const columns = [
         {
@@ -65,7 +65,7 @@ function Accounts() {
                     >
                         Xóa
                     </Button>
-                    <NavLink className="bg-gray-400 p-2 px-3 text-white rounded-md">Chi tiết</NavLink>
+                    <NavLink to={`/admin/accounts/detail/${record._id}`} className="bg-gray-400 p-2 px-3 text-white rounded-md">Chi tiết</NavLink>
 
                     
                 </Space>
@@ -78,7 +78,7 @@ function Accounts() {
     return (
         <>  
             <div
-                className={`transition-all duration-300 ${
+                className={`transition-all duration-300  ${
                 collapsed
                     ? "ml-[100px] w-[calc(100%-100px)]"
                     : "ml-[230px] w-[calc(100%-230px)]"
@@ -104,7 +104,7 @@ function Accounts() {
                         </Row>
                     }
                     headStyle={{
-                        backgroundColor: '#edf2f7',
+                        backgroundColor: 'white',
                         color: '#2d3748',
                         padding: '16px',
                         borderRadius: '0.375rem 0.375rem 0 0',
@@ -113,7 +113,8 @@ function Accounts() {
                         fontWeight: '300'
                     }}
                     style={{ marginBottom: '20px' }}
-                    className="mt-4 mr-8"
+                    className="mt-4 mr-8 shadow-md"
+
                 >
                 
                     <Table

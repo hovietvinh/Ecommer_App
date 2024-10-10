@@ -9,8 +9,6 @@ function Header() {
     // console.log(stateAuth);
     const handleClick =()=>{
         localStorage.removeItem("access_token")
-        
-        
         notification.success({
             message:"Đã đăng xuất"
         })

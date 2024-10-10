@@ -63,8 +63,8 @@ function Default() {
         <>
             {stateAuth.access_token? (
                 <>
-                    <Header />
-                    <div className="body">
+                    <Header className=""/>
+                    <div className="">
                         <Sider collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
                         <Outlet context={dataOutlet} />
                     </div>

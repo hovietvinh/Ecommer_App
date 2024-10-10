@@ -33,6 +33,16 @@ const permissionsData = [
       { name: "Xóa", code: "roles_delete" },
       { name: "Phân quyền", code: "roles_permissions" }
     ]
+  },
+  {
+    entity:"Tài khoản",
+    permissions: [
+      { name: "Xem", code: "accounts_view" },
+      { name: "Tạo", code: "accounts_create" },
+      { name: "Chỉnh sửa", code: "accounts_edit" },
+      { name: "Xóa", code: "accounts_delete" },
+    
+    ]
   }
 ];
 

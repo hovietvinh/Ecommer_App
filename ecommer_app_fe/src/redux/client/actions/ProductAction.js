@@ -1,5 +1,6 @@
 import { getProductDetaiSluglApi, getProductsApi, getProductsByKeywordApi, getProductsBySlugCategoryApi } from "../../../utils/apiClient";
 import {notification} from "antd"
+import { toast } from "react-hot-toast";
 export const getProductsAction = ()=>{
     return async(dispatch)=>{
         try {
@@ -14,15 +15,15 @@ export const getProductsAction = ()=>{
             }
             else{
                 
-                notification.error({
+                toast.error({
                     message:"Lấy dữ liệu thất bại code: " + `${data.code}`,
-                    description: data.message
+                  
                 })
             }
         } catch (error) {
-            notification.error({
+            toast.error({
                 message:"Lấy dữ liệu thất bại",
-                description: error.message
+             
             })
         }
     }

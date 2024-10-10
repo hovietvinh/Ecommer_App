@@ -101,13 +101,20 @@ function Default() {
         <>
             {!loading &&(
                 <>
-                    <Layout style={{ minHeight: '100vh' }}>
+                    {/* <Layout style={{ minHeight: '100vh' }}>
                         <Header value={value} setValue={setValue} />
-                        <Content className="h-full bg-white">
+                        <Content className="h-full bg-slate-100">
                             <Outlet />
                         </Content>
                         <Footer />
-                    </Layout>
+                    </Layout> */}
+
+                    <Header  value={value} setValue={setValue}/>
+                    <main className="bg-slate-100 overflow-y-auto h-[calc(100vh-103px)] ">
+                        <Outlet />
+                    </main>
+                    <Footer />
+
                     
                 </>
             )}

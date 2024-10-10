@@ -32,6 +32,7 @@ import Register from "../client/pages/Register";
 import LoginUser from "../client/pages/Login";
 import DetailRole from "../admin/pages/DetailRole";
 import MyAccount from "../admin/pages/MyAccount";
+import DetailAccount from "../admin/pages/DetailAccount";
 
 export const routes = [
     {
@@ -144,17 +145,22 @@ export const routes = [
                 path: "roles/permissions",
                 element: <RoleBasedRoute requiredPermissions={["roles_permissions"]}><RolePermissions /></RoleBasedRoute>,
             },
-            {
-                path: "accounts",
-                element: <RoleBasedRoute ><Accounts /></RoleBasedRoute>,
-            },
-            {
-                path: "accounts/create",
-                element: <RoleBasedRoute ><CreateAccount /></RoleBasedRoute>,
-            },
+            
             {
                 path:"roles/detail/:id",
                 element:<RoleBasedRoute requiredPermissions={["roles_view"]}><DetailRole/></RoleBasedRoute>,
+            },
+            {
+                path: "accounts",
+                element: <RoleBasedRoute requiredPermissions={["accounts_view"]}><Accounts /></RoleBasedRoute>,
+            },
+            {
+                path: "accounts/create",
+                element: <RoleBasedRoute requiredPermissions={["accounts_create"]}><CreateAccount /></RoleBasedRoute>,
+            },
+            {
+                path: "accounts/detail/:id",
+                element: <RoleBasedRoute requiredPermissions={["accounts_view"]}><DetailAccount/></RoleBasedRoute>,
             },
             {
                 path:"my-account",

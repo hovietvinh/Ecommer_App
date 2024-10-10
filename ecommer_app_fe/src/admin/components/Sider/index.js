@@ -14,6 +14,7 @@ function Sider(props) {
 
     // Hàm kiểm tra xem người dùng có quyền cụ thể không
     const hasPermission = (code) => userPermissions.includes(code);
+    // console.log(stateAuth);
     const items = [
         {
           key: 'toggle',
@@ -47,7 +48,7 @@ function Sider(props) {
           icon: <SettingOutlined />,
           label: <NavLink to="/admin/roles/permissions">Phân quyền</NavLink>
         },
-        {
+        hasPermission("accounts_view")&& {
             key:"/admin/accounts",
             icon:<UserOutlined/>,
             label:<NavLink to="/admin/accounts">Danh sách tài khoản</NavLink>

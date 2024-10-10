@@ -154,7 +154,6 @@ function RecordsDelete() {
                         bordered={false}
                         size="middle" className="mr-8 mb-6 mt-4"
                         headStyle={{
-                            backgroundColor: '#edf2f7',
                             color: '#2d3748',
                             padding: '16px',
                             borderRadius: '0.375rem 0.375rem 0 0',
@@ -183,7 +182,6 @@ function RecordsDelete() {
                     bordered={false}
                     size="middle" className="mr-8 mb-6 mt-4"
                     headStyle={{
-                        backgroundColor: '#edf2f7',
                         color: '#2d3748',
                         padding: '16px',
                         borderRadius: '0.375rem 0.375rem 0 0',

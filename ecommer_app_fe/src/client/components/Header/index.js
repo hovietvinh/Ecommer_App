@@ -55,10 +55,9 @@ function Header({setValue,value}) {
     }
     return (
         <>
-            <div className="border-b border-gray-300 py-[20px]">
-                <div className="container max-w-[80%] mx-auto">
-                    <div className="items-center flex justify-between">
-                        
+            <header className="h-16 flex items-center shadow-md p-4 bg-white">
+                <div className="container mx-auto h-full " >
+                    <div className="items-center flex justify-between">   
                         <div className="">
                             <h1 className="text-[23px] text-blue-500 font-bold">ECommer-APP</h1>
                         </div>
@@ -115,13 +114,13 @@ function Header({setValue,value}) {
                                 </>
                                 
                             )}
-
-                                            
-                        </div>
-                        
+                    
+                        </div>   
                     </div>
                 </div>
-            </div>
+            </header>
+            
+           
             
         
         

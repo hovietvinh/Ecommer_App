@@ -1,9 +1,12 @@
 import Allroutes from "./Allroutes";
-
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
-    <Allroutes/>
+    <>
+       <Toaster />
+      <Allroutes/>
+    </>
   );
 }
 

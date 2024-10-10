@@ -49,7 +49,7 @@ function DetailProduct() {
                     bordered
                     layout="horizontal"
                     items={items}
-                    className="mt-5 mr-8 mb-7"
+                    className="mt-5 mr-8 mb-7 "
                 />
             )}
 

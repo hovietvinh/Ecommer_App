@@ -16,7 +16,7 @@ function Dashboard() {
         dispatch(getProductsAdminAction())
         dispatch(getProductCategoryAction())
     },[dispatch])
-    console.log(stateAuth);
+    // console.log(stateAuth);
 
     
     
@@ -32,7 +32,7 @@ function Dashboard() {
         products: {
             total: stateProduct.products.length||0,
             active: stateProduct.products.filter(item=>item.status=="active").length||0,
-            inactive: stateProduct.products.filter(item=>item.status=="inactive").length||0,
+            featured: stateProduct.products.filter(item=>item.featured=="1").length||0,
         },
        
         client: {
@@ -49,7 +49,7 @@ function Dashboard() {
                 <Card title="Sản phẩm" className="mb-4 mb-4 shadow-lg">
                     <p>Số lượng: <b>{statistic.products.total}</b></p>
                     <p>Hoạt động: <b>{statistic.products.active}</b></p>
-                    <p>Dừng hoạt động: <b>{statistic.products.inactive}</b></p>
+                    <p>Nổi bật: <b>{statistic.products.featured}</b></p>
                 </Card>
                 <Card title="Danh mục sản phẩm" className="mb-4 shadow-lg">
                     <p>Số lượng: <b>{statistic.productsCategory.total}</b></p>

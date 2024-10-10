@@ -8,9 +8,11 @@ import UploadImg from '../../components/Upload';
 import RichTextEditor from '../../components/RichTextEditor';
 import { getProductCategoryAction } from '../../../redux/actions/ProductCategoryAction';
 import Tree from '../../components/Tree';
+import SpinScreen from '../../components/SpinScreen';
 
 function CreateProduct() {
   
+  const [show,setShow] = useState(false)
   const { collapsed } = useOutletContext();
   const [form] = Form.useForm();
   const [inputPrice, setInputPrice] = useState(1);
@@ -21,11 +23,13 @@ function CreateProduct() {
   const [editorContent, setEditorContent] = useState('');
   const stateProductCategory = useSelector(state=>state.ProductCategoryReducer)
 
+  const getProductCategory = ()=>{
+    dispatch(getProductCategoryAction())
+  }
   useEffect(()=>{
-    const getProductCategory = ()=>{
-        dispatch(getProductCategoryAction())
-    }
+    
     getProductCategory()
+    setShow(true)
   },[dispatch])  
   const [value, setValue] = useState();
   const onChange = (newValue) => {
@@ -41,6 +45,7 @@ function CreateProduct() {
   };
 
   const finish = async (values) => {
+    setShow(false);
     let formData = new FormData();
     
     // Append all form fields
@@ -63,12 +68,15 @@ function CreateProduct() {
     
     setEditorContent("");
     form.resetFields();
+    setShow(true)
   };
   
 
   return (
     <>
-      <div className={`transition-all duration-300 ${collapsed ? 'ml-[100px] w-[calc(100%-100px)]' : 'ml-[230px] w-[calc(100%-230px)]'} mt-[20px] mr-[20px]"`}>
+    {show ?(
+      <>
+        <div className={`transition-all duration-300 ${collapsed ? 'ml-[100px] w-[calc(100%-100px)]' : 'ml-[230px] w-[calc(100%-230px)]'} mt-[20px] mr-[20px]"`}>
         <BoxHead text={"Thêm mới sản phẩm"} />
 
         <Form
@@ -129,6 +137,14 @@ function CreateProduct() {
           </Form.Item>
         </Form>
       </div>
+      
+      </>
+    ):(
+      <>
+        <SpinScreen />
+      </>
+    )}
+      
     </>
   );
 }

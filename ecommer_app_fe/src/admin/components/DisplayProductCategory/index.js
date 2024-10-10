@@ -52,7 +52,6 @@ const DisplayProductCategory = () => {
                     </Row>
                 }
                 headStyle={{
-                    backgroundColor: '#edf2f7',
                     color: '#2d3748',
                     padding: '16px',
                     borderRadius: '0.375rem 0.375rem 0 0',
@@ -61,6 +60,7 @@ const DisplayProductCategory = () => {
                     fontWeight: '300'
                 }}
                 style={{ marginBottom: '20px' }}
+                className="shadow-md"
             >
                 <Row gutter={16}>
                     {stateProductCategory.productsCategory.map((category) => (

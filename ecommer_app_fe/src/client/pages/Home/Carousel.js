@@ -35,7 +35,7 @@ function App() {
                                     stateProducts.products.map((product) => (
                                         product.featured === "1" && (
                                            
-                                                <NavLink to={`/products/detail/${product.slug}`} key={product._id}   className="rounded-lg overflow-hidden border border-gray-300">
+                                                <NavLink to={`/products/detail/${product.slug}`} key={product._id}   className="rounded-lg overflow-hidden border border-white bg-white shadow-md hover:shadow-lg">
                                                        <Badge.Ribbon text="Nổi bật" color="red" className={product.featured === "1" ? "m-1  rounded-md" : "hidden"} >
                             <div className="w-full aspect-[4/3] border border-gray-300 relative">
                                 {product.stock>0 ?(
@@ -78,15 +78,7 @@ function App() {
                     </div>
                 </div>
 
-                <div>
-                    <h3 style={contentStyle}>2</h3>
-                </div>
-                <div>
-                    <h3 style={contentStyle}>3</h3>
-                </div>
-                <div>
-                    <h3 style={contentStyle}>4</h3>
-                </div>
+               
             </Carousel>
         </>
     );

@@ -25,7 +25,7 @@ const Test = ({id,data}) => {
   // console.log(data);
   return (
 
-    <Card title={"Danh mục sản phẩm"} >
+    <Card title={"Danh mục sản phẩm"} className="shadow-md">
       <Descriptions bordered column={1} className="mb-4">
         <Descriptions.Item label="Title">{data.title}</Descriptions.Item>
         <Descriptions.Item label="Description">
