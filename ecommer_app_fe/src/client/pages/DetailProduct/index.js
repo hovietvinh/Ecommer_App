@@ -120,7 +120,7 @@ function DetailProduct() {
                         </Row>
                     </div>
 
-                    <div className="container max-w-[80%] mx-auto my-5">
+                    <div className="container max-w-[80%] mx-auto my-5 ">
                         <Row>
 
                             <Col  span={24}>

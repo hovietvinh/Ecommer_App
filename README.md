@@ -23,8 +23,13 @@ JWT_EXPIRE= 1d
 - Vào folder ecommer_app_fe
 - Mở terminal , chạy câu lệnh : **npm i**(Nếu ở lần chạy đầu tiên) sau đó chạy **npm start**
 
+### Bạn nên chạy be ở port 3000 và fe ở port 3001
+
 ### Tài khoản admin
 - hovietvinh29032004@gmail.com 
 - admin123
+
+### Link admin
+- localhost:3001/admin
 
 

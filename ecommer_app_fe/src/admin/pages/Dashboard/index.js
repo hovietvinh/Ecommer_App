@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import BoxHead from "../../components/BoxHead";
 import { Card } from 'antd';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getProductsAdminAction } from "../../../redux/actions/ProductAction";
 import { getProductCategoryAction } from "../../../redux/actions/ProductCategoryAction";
 import { useOutletContext } from "react-router-dom";
@@ -10,6 +10,7 @@ function Dashboard() {
     const stateAuth = useSelector(state=>state.AuthReducer)
     const stateProduct = useSelector(state=>state.ProductReducer)
     const stateProductCategory = useSelector(state=>state.ProductCategoryReducer)
+    const [orders,setOrders] = useState({});
     // console.log(stateProductCategory);
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -35,10 +36,10 @@ function Dashboard() {
             featured: stateProduct.products.filter(item=>item.featured=="1").length||0,
         },
        
-        client: {
+        orders: {
             total: 1000,
-            active: 950,
-            inactive: 50,
+            totalProducts: 950,
+            totalPrice: 50,
         }
     };
     return (
